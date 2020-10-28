@@ -14,9 +14,57 @@
     //=======================================================
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
-    if($do == 'Manage'){
-      echo '<h1>Manage Members Page</h1>';
-      echo '<a href="members.php?do=Add">+ Add</a>';
+    if($do == 'Manage'){// Manage Members Page?>
+      <h1 class="text-center">Manage Members</h1>
+      <div class="container">
+        <div class="table-responsive">
+          <table class="main-table table table-bordered text-center">
+            <tr>
+              <td>#ID</td>
+              <td>Username</td>
+              <td>Email</td>
+              <td>Full Name</td>
+              <td>Registered Date</td>
+              <td>Control</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <a href="#" class="btn btn-success">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <a href="#" class="btn btn-success">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <a href="#" class="btn btn-success">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <a href="members.php?do=Add" class="btn btn-primary">+ Add New Member</a>
+      </div>
+    <?php
     }elseif($do == 'Add'){ //Add Page ?>
       <h1 class="text-center">Add New Member</h1>
       <div class="container">
@@ -135,19 +183,18 @@
         }
         // Check If There Is No Errors Proceed The Insert Process
         if(empty($formErrors)){
-          // Insert New Data In The Database
-          $stmt = $con->prepare("UPDATE
-                                    users
-                                  SET
-                                    Username = ?,
-                                    Password = ?,
-                                    Email = ?,
-                                    FullName = ?
-                                  WHERE
-                                    UserID = ?
+          // Insert User Info In Database
+          $stmt = $con->prepare("INSERT INTO
+                                    users(Username, Password, Email, FullName)
+                                  VALUES(:user, :pass, :email, :name)
                                 ");
           // Execute Query
-          $stmt->execute(array($user, $pass, $email, $name, $id));
+          $stmt->execute(array(
+            'user' => $user,
+            'pass' => $hashedpass,
+            'email' => $email,
+            'name' => $name
+          ));
           // Echo Success Message
           echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
         }
