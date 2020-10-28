@@ -12,7 +12,7 @@
     $pageTitle = 'Members';
     include 'init.php';
     //=======================================================
-    
+
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
     if($do == 'Manage'){
       echo '<h1>Manage Members Page</h1>';
@@ -51,6 +51,7 @@
                 onblur="onInputBlur()"
                 autocomplete="new-password"
               />
+              <i class="show-pass fa fa-eye fa-2x"></i>
             </div>
           </div>
           <div class="form-group row">
@@ -98,11 +99,63 @@
       </div>
     <?php
     }elseif($do == 'Insert'){ //Insert Page
-      echo 'Insert Page' . '<br/>';
-      echo $_POST['username'] . '<br/>';
-      echo $_POST['password'] . '<br/>';
-      echo $_POST['email'] . '<br/>';
-      echo $_POST['full'] . '<br/>';
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        echo '<h1 class="text-center">Insert Member</h1>';
+        echo '<div class="container">';
+        // Get Variables From Form
+        $user   = $_POST['username'];
+        $pass   = $_POST['password'];
+        $hashedpass   = sha1($_POST['password']);
+        $email  = $_POST['email'];
+        $name   = $_POST['full'];
+        // Validation Of The Form
+        $formErrors = array();
+
+        if(strlen($user) < 4 && !empty($user)){
+          $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
+        }
+        if(strlen($user) > 20){
+          $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
+        }
+        if(empty($user)){
+          $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
+        }
+        if(empty($pass)){
+          $formErrors[] = 'Password Can\'t Be <strong>Empty</strong>';
+        }
+        if(empty($email)){
+          $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
+        }
+        if(empty($name)){
+          $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
+        }
+
+        foreach($formErrors as $error){
+          echo '<div class="alert alert-danger">' . $error . '</div>';
+        }
+        // Check If There Is No Errors Proceed The Insert Process
+        if(empty($formErrors)){
+          // Insert New Data In The Database
+          $stmt = $con->prepare("UPDATE
+                                    users
+                                  SET
+                                    Username = ?,
+                                    Password = ?,
+                                    Email = ?,
+                                    FullName = ?
+                                  WHERE
+                                    UserID = ?
+                                ");
+          // Execute Query
+          $stmt->execute(array($user, $pass, $email, $name, $id));
+          // Echo Success Message
+          echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+        }
+        
+      }else{
+        echo 'You Can NOT Access This Page Directly';
+      }
+      echo '</div>';
     }elseif($do == 'Edit'){ //Edit Page
       // Check If User ID In Get Request Is Integer & Get Its Integer Value
       $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
@@ -211,9 +264,9 @@
         echo 'Error There Is No Such ID';
       }
     }elseif($do == 'Update'){ // Update Page
-      echo '<h1 class="text-center">Update Member</h1>';
-      echo '<div class="container">';
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        echo '<h1 class="text-center">Update Member</h1>';
+        echo '<div class="container">';
         // Get Variables From Form
         $id     = $_POST['userid'];
         $user   = $_POST['username'];
@@ -228,23 +281,23 @@
         $formErrors = array();
 
         if(strlen($user) < 4 && !empty($user)){
-          $formErrors[] = '<div class="alert alert-danger">Username Can\'t Be Less Than <strong>4 Chars</strong></div>';
+          $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
         }
         if(strlen($user) > 20){
-          $formErrors[] = '<div class="alert alert-danger">Username Can\'t Be More Than <strong>20 Chars</strong></div>';
+          $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
         }
         if(empty($user)){
-          $formErrors[] = '<div class="alert alert-danger">Username Can\'t Be <strong>Empty</strong></div>';
+          $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
         }
         if(empty($email)){
-          $formErrors[] = '<div class="alert alert-danger">Email Can\'t Be <strong>Empty</strong></div>';
+          $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
         }
         if(empty($name)){
-          $formErrors[] = '<div class="alert alert-danger">Full Name Can\'t Be <strong>Empty</strong></div>';
+          $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
         }
 
         foreach($formErrors as $error){
-          echo $error;
+          echo '<div class="alert alert-danger">' . $error . '</div>';
         }
         // Check If There Is No Errors Proceed The Update Process
         if(empty($formErrors)){
