@@ -86,3 +86,9 @@ if(eye !== undefined){
 /* ========================================================================== */
     /* =============================================================== */
               /* ===================================== */
+let deleteButtons = document.getElementsByClassName('delete');
+for (const button of deleteButtons){
+  button.addEventListener('click', function(){
+    alert(`Are You Sure You Want To Delete:[ ${button.id} ]`);
+  })
+}

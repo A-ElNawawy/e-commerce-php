@@ -14,7 +14,13 @@
     //=======================================================
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
-    if($do == 'Manage'){// Manage Members Page?>
+    if($do == 'Manage'){      // Manage Members Page
+      // Select All Users Except Admin
+      $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1");
+      // Execute The Statement
+      $stmt ->execute();
+      // Assign To Variable
+      $rows = $stmt->fetchAll(); ?>
       <h1 class="text-center">Manage Members</h1>
       <div class="container">
         <div class="table-responsive">
@@ -27,45 +33,40 @@
               <td>Registered Date</td>
               <td>Control</td>
             </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <a href="#" class="btn btn-success">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <a href="#" class="btn btn-success">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <a href="#" class="btn btn-success">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </td>
-            </tr>
+            <?php
+              foreach($rows as $row){
+                echo '<tr>';
+                echo '<td>' . $row['UserID'] . '</td>';
+                echo '<td>' . $row['Username'] . '</td>';
+                echo '<td>' . $row['Email'] . '</td>';
+                echo '<td>' . $row['FullName'] . '</td>';
+                echo '<td></td>';
+                echo '
+                  <td>
+                    <a
+                      href="?do=Edit&userid='.$row['UserID'].'"
+                      class="btn btn-success"
+                    >
+                      Edit
+                    </a>
+                    <a
+                      id="'.$row['Username'].'"
+                      href="?do=Delete&userid='.$row['UserID'].'"
+                      class="delete btn btn-danger"
+                    >
+                      Delete
+                    </a>
+                  </td>
+                ';
+                echo '</tr>';
+              }
+            ?>
           </table>
         </div>
         <a href="members.php?do=Add" class="btn btn-primary">+ Add New Member</a>
       </div>
     <?php
-    }elseif($do == 'Add'){ //Add Page ?>
+    }elseif($do == 'Add'){    //Add Members Page ?>
       <h1 class="text-center">Add New Member</h1>
       <div class="container">
         <form action="?do=Insert" method="POST">
@@ -150,60 +151,67 @@
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo '<h1 class="text-center">Insert Member</h1>';
         echo '<div class="container">';
-        // Get Variables From Form
-        $user   = $_POST['username'];
-        $pass   = $_POST['password'];
-        $hashedpass   = sha1($_POST['password']);
-        $email  = $_POST['email'];
-        $name   = $_POST['full'];
-        // Validation Of The Form
-        $formErrors = array();
+          // Get Variables From Form
+          $user   = $_POST['username'];
+          $pass   = $_POST['password'];
+          $hashedpass   = sha1($_POST['password']);
+          $email  = $_POST['email'];
+          $name   = $_POST['full'];
+          // Validation Of The Form
+          $formErrors = array();
 
-        if(strlen($user) < 4 && !empty($user)){
-          $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
-        }
-        if(strlen($user) > 20){
-          $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
-        }
-        if(empty($user)){
-          $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
-        }
-        if(empty($pass)){
-          $formErrors[] = 'Password Can\'t Be <strong>Empty</strong>';
-        }
-        if(empty($email)){
-          $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
-        }
-        if(empty($name)){
-          $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
-        }
+          if(strlen($user) < 4 && !empty($user)){
+            $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
+          }
+          if(strlen($user) > 20){
+            $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
+          }
+          if(empty($user)){
+            $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
+          }
+          if(empty($pass)){
+            $formErrors[] = 'Password Can\'t Be <strong>Empty</strong>';
+          }
+          if(empty($email)){
+            $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
+          }
+          if(empty($name)){
+            $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
+          }
+          foreach($formErrors as $error){
+            echo '<div class="alert alert-danger">' . $error . '</div>';
+          }
+          // Check If There Is No Errors Proceed The Insert Process
+          if(empty($formErrors)){
 
-        foreach($formErrors as $error){
-          echo '<div class="alert alert-danger">' . $error . '</div>';
+            /* 
+            Here ( Before Sending stmt ) We Have To Check If Username Is Already Used
+            Because If It used before, We Can't Repeat It
+            And Should Inform User That He Has To Choose Another One
+            We Will Do That Later
+            */
+
+            // Insert User Info In Database
+            $stmt = $con->prepare("INSERT INTO
+                                      users(Username, Password, Email, FullName)
+                                    VALUES(:user, :pass, :email, :name)
+                                  ");
+            // Execute Query
+            $stmt->execute(array(
+              'user' => $user,
+              'pass' => $hashedpass,
+              'email' => $email,
+              'name' => $name
+            ));
+            // Echo Success Message
+            echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+          }
+          
+        }else{
+          echo 'You Can NOT Access This Page Directly';
         }
-        // Check If There Is No Errors Proceed The Insert Process
-        if(empty($formErrors)){
-          // Insert User Info In Database
-          $stmt = $con->prepare("INSERT INTO
-                                    users(Username, Password, Email, FullName)
-                                  VALUES(:user, :pass, :email, :name)
-                                ");
-          // Execute Query
-          $stmt->execute(array(
-            'user' => $user,
-            'pass' => $hashedpass,
-            'email' => $email,
-            'name' => $name
-          ));
-          // Echo Success Message
-          echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
-        }
-        
-      }else{
-        echo 'You Can NOT Access This Page Directly';
-      }
       echo '</div>';
-    }elseif($do == 'Edit'){ //Edit Page
+    }elseif($do == 'Edit'){   //Edit Members Page
       // Check If User ID In Get Request Is Integer & Get Its Integer Value
       $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
       // Select All Data Depend On This ID
@@ -314,60 +322,95 @@
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo '<h1 class="text-center">Update Member</h1>';
         echo '<div class="container">';
-        // Get Variables From Form
-        $id     = $_POST['userid'];
-        $user   = $_POST['username'];
-        $email  = $_POST['email'];
-        $name   = $_POST['full'];
-        // Password trick
-        $pass = empty($_POST['newpassword']) ? // Check If newpassword Field Is Empty
-                  $_POST['oldpassword']
-                :
-                  sha1($_POST['newpassword']);
-        // Validation Of The Form
-        $formErrors = array();
+          // Get Variables From Form
+          $id     = $_POST['userid'];
+          $user   = $_POST['username'];
+          $email  = $_POST['email'];
+          $name   = $_POST['full'];
+          // Password trick
+          $pass = empty($_POST['newpassword']) ? // Check If newpassword Field Is Empty
+                    $_POST['oldpassword']
+                  :
+                    sha1($_POST['newpassword']);
+          // Validation Of The Form
+          $formErrors = array();
 
-        if(strlen($user) < 4 && !empty($user)){
-          $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
-        }
-        if(strlen($user) > 20){
-          $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
-        }
-        if(empty($user)){
-          $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
-        }
-        if(empty($email)){
-          $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
-        }
-        if(empty($name)){
-          $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
-        }
+          if(strlen($user) < 4 && !empty($user)){
+            $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
+          }
+          if(strlen($user) > 20){
+            $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
+          }
+          if(empty($user)){
+            $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
+          }
+          if(empty($email)){
+            $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
+          }
+          if(empty($name)){
+            $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
+          }
 
-        foreach($formErrors as $error){
-          echo '<div class="alert alert-danger">' . $error . '</div>';
+          foreach($formErrors as $error){
+            echo '<div class="alert alert-danger">' . $error . '</div>';
+          }
+          // Check If There Is No Errors Proceed The Update Process
+          if(empty($formErrors)){
+            // Update The Database With This Info
+            $stmt = $con->prepare("UPDATE
+                                      users
+                                    SET
+                                      Username = ?,
+                                      Password = ?,
+                                      Email = ?,
+                                      FullName = ?
+                                    WHERE
+                                      UserID = ?
+                                  ");
+            // Execute Query
+            $stmt->execute(array($user, $pass, $email, $name, $id));
+            // Echo Success Message
+            echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
+          }
+          
+        }else{
+          echo 'You Can NOT Access This Page Directly';
         }
-        // Check If There Is No Errors Proceed The Update Process
-        if(empty($formErrors)){
-          // Update The Database With This Info
-          $stmt = $con->prepare("UPDATE
-                                    users
-                                  SET
-                                    Username = ?,
-                                    Password = ?,
-                                    Email = ?,
-                                    FullName = ?
-                                  WHERE
-                                    UserID = ?
-                                ");
-          // Execute Query
-          $stmt->execute(array($user, $pass, $email, $name, $id));
+      echo '</div>';
+    }elseif($do == 'Delete'){ // Delete Member Page
+      echo '<h1 class="text-center">Delete Member</h1>';
+      echo '<div class="container">';
+        /*
+        Note That:
+        If We Type the userid=1 In The HTTP Request
+        We Will Delete The Admin Which Has Not To Happen
+        */
+        // Check If User ID In Get Request Is Integer & Get Its Integer Value
+        $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+        // Select All Data Depend On This ID
+        $stmt = $con->prepare("SELECT
+                                  *
+                                FROM
+                                  users
+                                WHERE
+                                  UserID = ?
+                                LIMIT
+                                  1
+                              ");
+        // Execute Query
+        $stmt->execute(array($userid));
+        // The Row Count
+        $count = $stmt->rowCount();
+        // If There Is Such ID, Show The Form
+        if($count > 0){
+          $stmt = $con->prepare("DELETE FROM users WHERE UserID = :user");
+          $stmt->bindParam(":user", $userid);
+          $stmt->execute();
           // Echo Success Message
-          echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
+          echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Deleted</div>';
+        }else{
+          echo 'ID You Entered NOT Exist';
         }
-        
-      }else{
-        echo 'You Can NOT Access This Page Directly';
-      }
       echo '</div>';
     }
 
