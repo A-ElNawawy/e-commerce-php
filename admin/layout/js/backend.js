@@ -73,13 +73,16 @@ for(const input of inputs) {
 == Convert Password Field To Text Field On Hover On eye Icon
 ======================================================================*/
 let eye = document.getElementsByClassName('show-pass')[0];
-let passField = eye.previousElementSibling.previousElementSibling;
-eye.addEventListener("mouseover", function(){
-  passField.type = "text";
-});
-eye.addEventListener("mouseout", function(){
-  passField.type = "password";
-});
+// If There Is No eye Element Escape all the next code
+if(eye !== undefined){
+  let passField = eye.previousElementSibling.previousElementSibling;
+  eye.addEventListener("mouseover", function(){
+    passField.type = "text";
+  });
+  eye.addEventListener("mouseout", function(){
+    passField.type = "password";
+  });
+}
 /* ========================================================================== */
     /* =============================================================== */
               /* ===================================== */
