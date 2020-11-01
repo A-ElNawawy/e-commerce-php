@@ -183,28 +183,26 @@
             }
             // Check If There Is No Errors Proceed The Insert Process
             if(empty($formErrors)){
-
-              /* 
-              Here ( Before Sending stmt ) We Have To Check If Username Is Already Used
-              Because If It used before, We Can't Repeat It
-              And Should Inform User That He Has To Choose Another One
-              We Will Do That Later
-              */
-
-              // Insert User Info In Database
-              $stmt = $con->prepare("INSERT INTO
-                                        users(Username, Password, Email, FullName)
-                                      VALUES(:user, :pass, :email, :name)
-                                    ");
-              // Execute Query
-              $stmt->execute(array(
-                'user' => $user,
-                'pass' => $hashedpass,
-                'email' => $email,
-                'name' => $name
-              ));
-              // Echo Success Message
-              echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+              // Check If User Exists in Database
+              $check = checkItem("Username", "users", $user);
+              if($check == 1){
+                echo "Sorry This Username is Exist";
+              }else{
+                // Insert User Info In Database
+                $stmt = $con->prepare("INSERT INTO
+                                          users(Username, Password, Email, FullName)
+                                        VALUES(:user, :pass, :email, :name)
+                                      ");
+                // Execute Query
+                $stmt->execute(array(
+                  'user' => $user,
+                  'pass' => $hashedpass,
+                  'email' => $email,
+                  'name' => $name
+                ));
+                // Echo Success Message
+                echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+              }
             }
         }else{
           $errorMsg = 'You Can NOT Access This Page Directly';
