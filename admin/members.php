@@ -207,8 +207,8 @@
               echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
             }
         }else{
-          echo 'You Can NOT Access This Page Directly';
-          
+          $errorMsg = 'You Can NOT Access This Page Directly';
+          redirectToHome($errorMsg, 60);
         }
       echo '</div>';
     }elseif($do == 'Edit'){   //Edit Members Page
