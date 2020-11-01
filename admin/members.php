@@ -40,7 +40,7 @@
                 echo '<td>' . $row['Username'] . '</td>';
                 echo '<td>' . $row['Email'] . '</td>';
                 echo '<td>' . $row['FullName'] . '</td>';
-                echo '<td></td>';
+                echo '<td>' . $row['Date'] . '</td>';
                 echo '
                   <td>
                     <a
@@ -190,8 +190,8 @@
               }else{
                 // Insert User Info In Database
                 $stmt = $con->prepare("INSERT INTO
-                                          users(Username, Password, Email, FullName)
-                                        VALUES(:user, :pass, :email, :name)
+                                          users(Username, Password, Email, FullName, Date)
+                                        VALUES(:user, :pass, :email, :name, now())
                                       ");
                 // Execute Query
                 $stmt->execute(array(
@@ -201,12 +201,13 @@
                   'name' => $name
                 ));
                 // Echo Success Message
-                echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+                $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+                redirectToHome($theMsg, 'back');
               }
             }
         }else{
           $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
-          redirectToHome($theMsg, 'back');
+          redirectToHome($theMsg);
         }
       echo '</div>';
     }elseif($do == 'Edit'){   //Edit Members Page
@@ -314,12 +315,16 @@
       <?php
       // If There IS No Such ID, Show Error Message
       }else{
-        echo 'Error There Is No Such ID';
+        echo '<div class="container">';
+          echo '<h1 class="text-center">Edit Member</h1>';
+          $theMsg = '<div class="alert alert-danger">There Is No Such ID</div>';
+          redirectToHome($theMsg);
+        echo '</div>';
       }
     }elseif($do == 'Update'){ // Update Page
+      echo '<h1 class="text-center">Update Member</h1>';
+      echo '<div class="container">';
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        echo '<h1 class="text-center">Update Member</h1>';
-        echo '<div class="container">';
           // Get Variables From Form
           $id     = $_POST['userid'];
           $user   = $_POST['username'];
@@ -373,7 +378,8 @@
           }
           
         }else{
-          echo 'You Can NOT Access This Page Directly';
+          $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
+          redirectToHome($theMsg);
         }
       echo '</div>';
     }elseif($do == 'Delete'){ // Delete Member Page
@@ -406,9 +412,11 @@
           $stmt->bindParam(":user", $userid);
           $stmt->execute();
           // Echo Success Message
-          echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Deleted</div>';
+          $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Deleted</div>';
+          redirectToHome($theMsg, 'back');
         }else{
-          echo 'ID You Entered NOT Exist';
+          $theMsg = '<div class="alert alert-danger">ID You Entered NOT Exist</div>';
+          redirectToHome($theMsg);
         }
       echo '</div>';
     }
