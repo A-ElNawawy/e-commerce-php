@@ -148,67 +148,67 @@
       </div>
     <?php
     }elseif($do == 'Insert'){ //Insert Page
-      if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        echo '<h1 class="text-center">Insert Member</h1>';
-        echo '<div class="container">';
-          // Get Variables From Form
-          $user   = $_POST['username'];
-          $pass   = $_POST['password'];
-          $hashedpass   = sha1($_POST['password']);
-          $email  = $_POST['email'];
-          $name   = $_POST['full'];
-          // Validation Of The Form
-          $formErrors = array();
+      echo '<h1 class="text-center">Insert Member</h1>';
+      echo '<div class="container">';
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // Get Variables From Form
+            $user   = $_POST['username'];
+            $pass   = $_POST['password'];
+            $hashedpass   = sha1($_POST['password']);
+            $email  = $_POST['email'];
+            $name   = $_POST['full'];
+            // Validation Of The Form
+            $formErrors = array();
 
-          if(strlen($user) < 4 && !empty($user)){
-            $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
-          }
-          if(strlen($user) > 20){
-            $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
-          }
-          if(empty($user)){
-            $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
-          }
-          if(empty($pass)){
-            $formErrors[] = 'Password Can\'t Be <strong>Empty</strong>';
-          }
-          if(empty($email)){
-            $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
-          }
-          if(empty($name)){
-            $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
-          }
-          foreach($formErrors as $error){
-            echo '<div class="alert alert-danger">' . $error . '</div>';
-          }
-          // Check If There Is No Errors Proceed The Insert Process
-          if(empty($formErrors)){
+            if(strlen($user) < 4 && !empty($user)){
+              $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
+            }
+            if(strlen($user) > 20){
+              $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
+            }
+            if(empty($user)){
+              $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
+            }
+            if(empty($pass)){
+              $formErrors[] = 'Password Can\'t Be <strong>Empty</strong>';
+            }
+            if(empty($email)){
+              $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
+            }
+            if(empty($name)){
+              $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
+            }
+            foreach($formErrors as $error){
+              echo '<div class="alert alert-danger">' . $error . '</div>';
+            }
+            // Check If There Is No Errors Proceed The Insert Process
+            if(empty($formErrors)){
 
-            /* 
-            Here ( Before Sending stmt ) We Have To Check If Username Is Already Used
-            Because If It used before, We Can't Repeat It
-            And Should Inform User That He Has To Choose Another One
-            We Will Do That Later
-            */
+              /* 
+              Here ( Before Sending stmt ) We Have To Check If Username Is Already Used
+              Because If It used before, We Can't Repeat It
+              And Should Inform User That He Has To Choose Another One
+              We Will Do That Later
+              */
 
-            // Insert User Info In Database
-            $stmt = $con->prepare("INSERT INTO
-                                      users(Username, Password, Email, FullName)
-                                    VALUES(:user, :pass, :email, :name)
-                                  ");
-            // Execute Query
-            $stmt->execute(array(
-              'user' => $user,
-              'pass' => $hashedpass,
-              'email' => $email,
-              'name' => $name
-            ));
-            // Echo Success Message
-            echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
-          }
-          
+              // Insert User Info In Database
+              $stmt = $con->prepare("INSERT INTO
+                                        users(Username, Password, Email, FullName)
+                                      VALUES(:user, :pass, :email, :name)
+                                    ");
+              // Execute Query
+              $stmt->execute(array(
+                'user' => $user,
+                'pass' => $hashedpass,
+                'email' => $email,
+                'name' => $name
+              ));
+              // Echo Success Message
+              echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
+            }
         }else{
           echo 'You Can NOT Access This Page Directly';
+          
         }
       echo '</div>';
     }elseif($do == 'Edit'){   //Edit Members Page
