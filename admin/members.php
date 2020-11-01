@@ -47,14 +47,14 @@
                       href="?do=Edit&userid='.$row['UserID'].'"
                       class="btn btn-success"
                     >
-                      Edit
+                      <i class="fa fa-edit"></i> Edit
                     </a>
                     <a
                       id="'.$row['Username'].'"
                       href="?do=Delete&userid='.$row['UserID'].'"
                       class="delete btn btn-danger"
                     >
-                      Delete
+                    <i class="fa fa-close"></i> Delete
                     </a>
                   </td>
                 ';
@@ -63,7 +63,7 @@
             ?>
           </table>
         </div>
-        <a href="members.php?do=Add" class="btn btn-primary">+ Add New Member</a>
+        <a href="members.php?do=Add" class="btn btn-primary">+ New Member</a>
       </div>
     <?php
     }elseif($do == 'Add'){    //Add Members Page ?>
