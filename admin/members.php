@@ -205,8 +205,8 @@
               }
             }
         }else{
-          $errorMsg = 'You Can NOT Access This Page Directly';
-          redirectToHome($errorMsg, 60);
+          $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
+          redirectToHome($theMsg, 'back');
         }
       echo '</div>';
     }elseif($do == 'Edit'){   //Edit Members Page
@@ -368,7 +368,8 @@
             // Execute Query
             $stmt->execute(array($user, $pass, $email, $name, $id));
             // Echo Success Message
-            echo '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
+            $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
+            redirectToHome($theMsg, 'back');
           }
           
         }else{
