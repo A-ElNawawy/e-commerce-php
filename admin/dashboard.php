@@ -13,7 +13,7 @@
         <div class="col-md-3">
           <div class="stat">
             Total Members
-            <span>200</span>
+            <span><?php echo countItems('UserID', 'users') ?></span>
           </div>
         </div>
         <div class="col-md-3">

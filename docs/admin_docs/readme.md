@@ -37,4 +37,14 @@
     $table   = The Table to Select From.         [ Default = ]
     $value   = The Value of $column.             [ Default = ]
 - Return:
-    $count   = Number of Items Found.
+    $count   = Number of Items if Exist.
+        ------------------------------------------------------------------------
+
+#countItems Function:
+====================
+- We Use This Function to Get The Number of Item in Table
+- Parameters:
+    $item  = The Item to Count.               [ Default = ]
+    $table = The Table to Select From.        [ Default = ]
+- Return:
+    Number of Items Found.

@@ -59,3 +59,15 @@ function checkItem($column, $table, $value){
   $count = $statement->rowCount();
   return $count;
 }
+/*
+** countItems Function v1.0
+** Function to get Number of Given Items in Given Table [ Accepts Parameters ]
+** $item  = The Item to Count
+** $table = The Table to Select From
+*/
+function countItems($item, $table){
+  global $con;
+  $statement = $con->prepare("SELECT COUNT($item) FROM $table");
+  $statement->execute();
+  return $statement->fetchColumn();
+}
