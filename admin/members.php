@@ -186,7 +186,8 @@
               // Check If User Exists in Database
               $check = checkItem("Username", "users", $user);
               if($check == 1){
-                echo "Sorry This Username is Exist";
+                $theMsg = '<div class="alert alert-danger">Sorry This Username is Exist</div>';
+                redirectToHome($theMsg, 'back', 1.5);
               }else{
                 // Insert User Info In Database
                 $stmt = $con->prepare("INSERT INTO
@@ -393,21 +394,9 @@
         // Check If User ID In Get Request Is Integer & Get Its Integer Value
         $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
         // Select All Data Depend On This ID
-        $stmt = $con->prepare("SELECT
-                                  *
-                                FROM
-                                  users
-                                WHERE
-                                  UserID = ?
-                                LIMIT
-                                  1
-                              ");
-        // Execute Query
-        $stmt->execute(array($userid));
-        // The Row Count
-        $count = $stmt->rowCount();
+        $check = checkItem('UserID', 'users', $userid);
         // If There Is Such ID, Show The Form
-        if($count > 0){
+        if($check > 0){
           $stmt = $con->prepare("DELETE FROM users WHERE UserID = :user");
           $stmt->bindParam(":user", $userid);
           $stmt->execute();

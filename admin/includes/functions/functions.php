@@ -48,9 +48,9 @@ function redirectToHome($theMsg, $url = null, $seconds = 3){
 /*
 ** checkItem Function v1.0
 ** Function to Check Item in Database [ Accepts Parameters ]
-** $column = The Item to Select
-** $table = The Table to Select From
-** $value = The Value of $column
+** $column  = The Item to Select
+** $table   = The Table to Select From
+** $value   = The Value of $column
 */
 function checkItem($column, $table, $value){
   global $con;
