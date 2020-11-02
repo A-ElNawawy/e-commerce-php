@@ -191,8 +191,8 @@
               }else{
                 // Insert User Info In Database
                 $stmt = $con->prepare("INSERT INTO
-                                          users(Username, Password, Email, FullName, Date)
-                                        VALUES(:user, :pass, :email, :name, now())
+                                          users(Username, Password, Email, FullName, RegStatus, Date)
+                                        VALUES(:user, :pass, :email, :name, 1, now())
                                       ");
                 // Execute Query
                 $stmt->execute(array(

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="dashboard.php">
       <?php echo lang('ADMIN_HOME') ?><!-- Admin Home -->
     </a>
     <button 
