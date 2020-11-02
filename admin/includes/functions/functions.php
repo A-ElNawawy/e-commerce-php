@@ -18,8 +18,7 @@ function getTitle(){
 ** Home Redirect Function [ Accepts Parameters ]
 ** $errorMsg = Echo The Error Message
 ** $seconds  = Seconds Before Redirecting
-
-
+*******************************************
 ** redirectToHome() v2.0
 ** Home Redirect Function [ Accepts Parameters ]
 ** $theMsg  = Echo The Message [ Error | Success | Warning ]
@@ -59,15 +58,33 @@ function checkItem($column, $table, $value){
   $count = $statement->rowCount();
   return $count;
 }
+
 /*
 ** countItems Function v1.0
 ** Function to get Number of Given Items in Given Table [ Accepts Parameters ]
-** $item  = The Item to Count
-** $table = The Table to Select From
+** $column  = The Item to Count
+** $table   = The Table to Select From
 */
-function countItems($item, $table){
+function countItems($column, $table){
   global $con;
-  $statement = $con->prepare("SELECT COUNT($item) FROM $table");
+  $statement = $con->prepare("SELECT COUNT($column) FROM $table");
   $statement->execute();
-  return $statement->fetchColumn();
+  $count = $statement->fetchColumn();
+  return $count;
+}
+
+/*
+** getLatest Function v1.0
+** Function to Get Latest number of Items From Database [ Accepts Parameters ]
+** $column  = The Item to Select
+** $table   = The Table to Select From
+** $order   = The Column That We Want To Order Results According to It Descending
+** $limit   = Number of Records We Want to Get
+*/
+function getLatest($column, $table, $order, $limit = 5){
+  global $con;
+  $statement = $con->prepare("SELECT $column FROM $table ORDER BY $order DESC LIMIT $limit");
+  $statement->execute();
+  $rows = $statement->fetchAll();
+  return $rows;
 }

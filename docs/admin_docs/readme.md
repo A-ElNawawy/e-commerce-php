@@ -32,6 +32,7 @@
 #checkItem Function:
 ===================
 - We Use This Function to Check If Item Exists in Database or Not.
+- Also We Can Use It To Get Number Of Existing Data.
 - Parameters:
     $column  = The Item to Select.               [ Default = ]
     $table   = The Table to Select From.         [ Default = ]
@@ -44,7 +45,19 @@
 ====================
 - We Use This Function to Get The Number of Item in Table
 - Parameters:
-    $item  = The Item to Count.               [ Default = ]
-    $table = The Table to Select From.        [ Default = ]
+    $column = The Item to Count.               [ Default = ]
+    $table  = The Table to Select From.        [ Default = ]
 - Return:
-    Number of Items Found.
+    $count  = Number of Items Found.
+        ------------------------------------------------------------------------
+
+#getLatest Function:
+====================
+- We Use This Function to Get Latest number of Items From Database
+- Parameters:
+    $column  = The Item to Select.                                                  [ Default = ]
+    $table   = The Table to Select From.                                            [ Default = ]
+    $order   = The Column That We Want To Order Results According to It Descending. [ Default = ]
+    $limit   = Number of Records We Want to Get.                                    [ Default = 5 ]
+- Return:
+    $rows  = Array of The Latest -$limit- Rows.

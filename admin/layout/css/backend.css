@@ -1,6 +1,7 @@
 /* start main rulz */
   body{
     background-color: #f4f4f4;
+    height: 2000px;
   }
 /* end main rulz */
 
@@ -112,6 +113,22 @@ h1{
   }
   .latest{
     margin-top: 30px;
-    
+  }
+  .latest .latest-users{
+    margin-bottom: 0;
+  }
+  .latest .latest-users li{
+    padding: 8px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  .latest .latest-users li:nth-child(odd){
+    background-color: #eee;
+  }
+  .latest .latest-users li .btn-success, .latest .latest-users li .btn-info{
+    padding: 1px 8px;
+  }
+  .latest .latest-users li .btn-info{
+    margin-right: 5px;
   }
 /* End Dashboard Page */

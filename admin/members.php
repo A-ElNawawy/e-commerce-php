@@ -15,8 +15,23 @@
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
     if($do == 'Manage'){      // Manage Members Page
+      // Check If User Want To Display Pending Members Only
+      $query = '';
+      if(isset($_GET['page']) && $_GET['page'] == 'Pending'){
+        /*
+          I Don't Know Why We Make This Check
+            isset($_GET['page'])
+          While We Will Check It's Value
+            $_GET['page'] == 'Pending'
+          Which Means - Surely - That It is Existing
+          I See That
+            $_GET['page'] == 'Pending'
+          Is Enough
+        */
+        $query = 'AND RegStatus = 0';
+      }
       // Select All Users Except Admin
-      $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1");
+      $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query");
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
@@ -52,12 +67,22 @@
                     <a
                       id="'.$row['Username'].'"
                       href="?do=Delete&userid='.$row['UserID'].'"
-                      class="delete btn btn-danger"
+                      class="btn btn-danger delete"
                     >
                     <i class="fa fa-close"></i> Delete
                     </a>
-                  </td>
                 ';
+                if($row['RegStatus'] == 0){
+                  echo '
+                    <a
+                      href="?do=Activate&userid='.$row['UserID'].'"
+                      class="btn btn-info"
+                    >
+                    <i class="fa fa-close"></i> Activate
+                    </a>
+                  ';
+                }
+                echo '</td>';
                 echo '</tr>';
               }
             ?>
@@ -402,6 +427,26 @@
           $stmt->execute();
           // Echo Success Message
           $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Deleted</div>';
+          redirectToHome($theMsg, 'back');
+        }else{
+          $theMsg = '<div class="alert alert-danger">ID You Entered NOT Exist</div>';
+          redirectToHome($theMsg);
+        }
+      echo '</div>';
+    }elseif($do == 'Activate'){ // Activate Member Page
+      echo '<h1 class="text-center">Activate Member</h1>';
+      echo '<div class="container">';
+        // Check If User ID In Get Request Is Integer & Get Its Integer Value
+        $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+        // Select All Data Depend On This ID
+        $check = checkItem('UserID', 'users', $userid);
+        // If There Is Such ID, Show The Form
+        if($check > 0){
+          $stmt = $con->prepare("UPDATE users SET RegStatus = 1 WHERE UserID = :user;");
+          $stmt->bindParam(":user", $userid);
+          $stmt->execute();
+          // Echo Success Message
+          $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Activated</div>';
           redirectToHome($theMsg, 'back');
         }else{
           $theMsg = '<div class="alert alert-danger">ID You Entered NOT Exist</div>';
