@@ -32,8 +32,11 @@ h1{
 .col-form-label{
   font-size: 25px;
 }
-.form-group input,.form-group button{
+.form-group input:not([type="radio"]),.form-group button{
   height: 50px;
+}
+.form-group .radio-group{
+  padding-top: 10px;
 }
 .form-group button{
   display: block;
