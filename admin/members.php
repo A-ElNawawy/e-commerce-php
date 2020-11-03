@@ -105,7 +105,7 @@
                 class="form-control"
                 autocomplete="off"
                 required="required"
-                placeholder="User Name To Login Shop"
+                placeholder="Username To Login Shop"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
               />
@@ -161,9 +161,9 @@
           <div class="form-group row">
             <div class="col-sm-12">
               <button
-              type="submit"
-              value="Add Member"
-              class="btn btn-primary"
+                type="submit"
+                value="Add Member"
+                class="btn btn-primary"
               >
                 Add Member
               </button>
