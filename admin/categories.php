@@ -13,9 +13,44 @@
     //=======================================================
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
-    if($do == 'Manage'){
-      echo 'Welcome';
-      echo '<a href="categories.php?do=Add" class="btn btn-primary">+ New Category</a>';
+    if($do == 'Manage'){      // Manage Categories Page
+      
+      // Select All Users Except Admin
+      $stmt = $con->prepare("SELECT * FROM categories");
+      // Execute The Statement
+      $stmt ->execute();
+      // Assign To Variable
+      $rows = $stmt->fetchAll(); ?>
+      <h1 class="text-center">Manage Categories</h1>
+      <div class="container categories">
+        <div class="card">
+          <div class="card-header">
+            Manage Categories
+          </div>
+          <div class="card-body">
+            <?php
+              foreach($rows as $row){
+                echo '<div class="cat">';
+                  echo '
+                    <div class="hidden">
+                      <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                      <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Delete</a>
+                    </div>
+                  ';
+                  echo '<h3>' . $row['Name'] . '</h3>';
+                  echo $row['Description'] == ""? '<p>This Category Has No Description</p>' : '<p>' . $row['Description'] . '</p>';
+                  echo $row['Visibility'] == 1? '<span class="cat-settings visibility">Hidden</span>' : '';
+                  echo $row['Allow_Comments'] == 1? '<span class="cat-settings comments">Comments Disabled</span>' : '';
+                  echo $row['Allow_Ads'] == 1? '<span class="cat-settings ads">Ads Blocked</span>' : '';
+                echo '</div>';
+                echo '<hr/>';
+              }
+            ?>
+          </div>
+        </div>
+        <a href="?do=Add" class="btn btn-primary">+ New Category</a>
+      </div>
+    <?php
     }elseif($do == 'Add'){    // Add Category Page ?>
       <h1 class="text-center">Add New Category</h1>
       <div class="container">
@@ -172,7 +207,7 @@
                 ));
                 // Echo Success Message
                 $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Category(s) Inserted</div>';
-                redirectToHome($theMsg, 'back');
+                redirectToHome($theMsg, 'back', .5);
               }
             }
         }else{

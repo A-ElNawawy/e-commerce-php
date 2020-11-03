@@ -1,7 +1,8 @@
 /* start main rulz */
   body{
     background-color: #f4f4f4;
-    height: 2000px;
+    padding-bottom: 15px;
+    /*height: 2000px;*/
   }
 /* end main rulz */
 
@@ -135,3 +136,56 @@ h1{
     margin-right: 5px;
   }
 /* End Dashboard Page */
+/* Start Categories Page */
+  .categories .card{
+    margin-bottom: 15px;
+  }
+  .categories .card .card-body{
+    padding: 0;
+  }
+  .categories .card .card-body .cat{
+    position: relative;
+    padding: 15px;
+    overflow: hidden;
+  }
+  .categories .card .card-body .cat:hover{
+    background-color: #eee;
+  }
+  .categories .card .card-body .cat .hidden{
+    position: absolute;
+    top:15px;
+    right: -170px;
+    transition: all .5s ease-in-out;
+  }
+  .categories .card .card-body .cat:hover .hidden{
+    right: 15px;
+  }
+  .categories .card .card-body .cat p{
+    margin: 0;
+  }
+  .categories .card .card-body .cat .cat-settings{
+    color: #ffffff;
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 5px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+  }
+  .categories .card .card-body .cat .visibility{
+    background-color: #d35400;
+  }
+  .categories .card .card-body .cat .comments{
+    background-color: #020463;
+  }
+  .categories .card .card-body .cat .ads{
+    background-color: #ff1515;
+  }
+  .categories .card .card-body hr{
+    margin: 0 5px;
+  }
+  .categories .card .card-body hr:last-of-type{
+    display: none;
+  }
+/* End Categories Page */

@@ -88,7 +88,7 @@
             ?>
           </table>
         </div>
-        <a href="members.php?do=Add" class="btn btn-primary">+ New Member</a>
+        <a href="?do=Add" class="btn btn-primary">+ New Member</a>
       </div>
     <?php
     }elseif($do == 'Add'){    //Add Members Page ?>
