@@ -30,7 +30,7 @@
               Choose Categories Order
               <a href="?sort=ASC">Asc</a> |
               <a href="?sort=DESC">Desc</a>
-          </div>
+            </div>
           </div>
           <div class="card-body">
             <?php
@@ -38,8 +38,18 @@
                 echo '<div class="cat">';
                   echo '
                     <div class="hidden">
-                      <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
-                      <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Delete</a>
+                      <a
+                        href="?do=Edit&catid='.$row['ID'].'"
+                        class="btn btn-sm btn-primary"
+                      >
+                        <i class="fa fa-edit"></i> Edit
+                      </a>
+                      <a
+                        href="#"
+                        class="btn btn-sm btn-danger"
+                      >
+                        <i class="fa fa-close"></i> Delete
+                      </a>
                     </div>
                   ';
                   echo '<h3>' . $row['Name'] . '</h3>';
@@ -220,8 +230,154 @@
           redirectToHome($theMsg);
         }
       echo '</div>';
-    }elseif($do == 'Edit'){
-
+    }elseif($do == 'Edit'){   //Edit Members Page
+      // Check If Category ID In Get Request Is Integer & Get Its Integer Value
+      $catid = isset($_GET['catid']) && is_numeric($_GET['catid']) ? intval($_GET['catid']) : 0;
+      // Select All Data Depend On This ID
+      $stmt = $con->prepare("SELECT
+                                *
+                              FROM
+                                categories
+                              WHERE
+                                ID = ?
+                              LIMIT
+                                1
+                            ");
+      // Execute Query
+      $stmt->execute(array($catid));
+      // Fetch The Data
+      $row = $stmt->fetch(); // To get all data in this record
+      // The Row Count
+      $count = $stmt->rowCount();
+      // If There Is Such ID, Show The Form
+      if($count > 0){?>
+        <h1 class="text-center">Edit Category</h1>
+        <div class="container">
+          <form action="?do=Update" method="POST">
+            <input
+              type="hidden"
+              name="catid"
+              value="<?php echo $catid ?>"
+            />
+            <div class="form-group row form-group-lg">
+              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="form-control"
+                  required="required"
+                  placeholder="Category Name"
+                  onfocus="onInputFocus(this)"
+                  onblur="onInputBlur()"
+                  value="<?php echo $row['Name'] ?>"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="description" class="col-sm-2 col-form-label">Description</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  name="description"
+                  id="description"
+                  class="form-control"
+                  placeholder="Describe Your Category"
+                  onfocus="onInputFocus(this)"
+                  onblur="onInputBlur()"
+                  value="<?php echo $row['Description'] ?>"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ordering" class="col-sm-2 col-form-label">Ordering</label>
+              <div class="col-sm-10">
+                <input 
+                  type="text"
+                  name="ordering"
+                  id="ordering"
+                  class="form-control"
+                  placeholder="Type a Number Which Indicates the Category Order"
+                  onfocus="onInputFocus(this)"
+                  onblur="onInputBlur()"
+                  value="<?php echo $row['Ordering'] ?>"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Visible</label>
+              <div class="col-sm-10 radio-group">
+                <div>
+                  <label>
+                    <input type="radio" name="visibility" value="0" <?php if($row['Visibility'] == 0){echo "checked";} ?> />
+                    Yes
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="radio" name="visibility" value="1" <?php if($row['Visibility'] == 1){echo "checked";} ?> />
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Allow Comments</label>
+              <div class="col-sm-10 radio-group">
+                <div>
+                  <label>
+                    <input type="radio" name="commenting" value="0" <?php if($row['Allow_Comments'] == 0){echo "checked";} ?> />
+                    Yes
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="radio" name="commenting" value="1" <?php if($row['Allow_Comments'] == 1){echo "checked";} ?> />
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Allow Ads</label>
+              <div class="col-sm-10 radio-group">
+                <div>
+                  <label>
+                    <input type="radio" name="ads" value="0" <?php if($row['Allow_Ads'] == 0){echo "checked";} ?> />
+                    Yes
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input type="radio" name="ads" value="1" <?php if($row['Allow_Ads'] == 1){echo "checked";} ?> />
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <button
+                  type="submit"
+                  value="Edit Category"
+                  class="btn btn-primary"
+                >
+                  Edit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      <?php
+      // If There IS No Such ID, Show Error Message
+      }else{
+        echo '<div class="container">';
+          echo '<h1 class="text-center">Edit Member</h1>';
+          $theMsg = '<div class="alert alert-danger">There Is No Such ID</div>';
+          redirectToHome($theMsg);
+        echo '</div>';
+      }
     }elseif($do == 'Update'){
 
     }elseif($do == 'Delete'){
