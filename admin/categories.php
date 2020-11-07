@@ -14,9 +14,9 @@
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
     if($do == 'Manage'){      // Manage Categories Page
-      
-      // Select All Users Except Admin
-      $stmt = $con->prepare("SELECT * FROM categories");
+      // Select All Categories With ASC Default Ordering
+      $sort = isset($_GET["sort"]) && $_GET["sort"] == "DESC"? "DESC" : "ASC"; // Check If User choose DESC or Not
+      $stmt = $con->prepare("SELECT * FROM categories ORDER BY Ordering $sort");
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
@@ -26,6 +26,11 @@
         <div class="card">
           <div class="card-header">
             Manage Categories
+            <div class="sorting">
+              Choose Categories Order
+              <a href="?sort=ASC">Asc</a> |
+              <a href="?sort=DESC">Desc</a>
+          </div>
           </div>
           <div class="card-body">
             <?php
