@@ -96,67 +96,63 @@
       <div class="container">
         <form action="?do=Insert" method="POST">
           <div class="form-group row form-group-lg">
-            <label for="username" class="col-sm-2 col-form-label">Username</label>
-            <div class="col-sm-10">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Username</p>
               <input
                 type="text"
                 name="username"
-                id="username"
-                class="form-control"
+                class="col-sm-10 form-control"
                 autocomplete="off"
                 required="required"
                 placeholder="Username To Login Shop"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
               />
-            </div>
+            </label>
           </div>
           <div class="form-group row">
-            <label for="newpassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Password</p>
               <input
                 type="password"
                 name="password"
-                id="newpassword"
-                class="form-control"
+                class="col-sm-10 form-control"
                 required="required"
                 placeholder="Password Must Be Strong & Complex"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
                 autocomplete="new-password"
               />
-              <i class="show-pass fa fa-eye fa-2x"></i>
-            </div>
+              <i class="show-pass fa fa-eye"></i>
+            </label>
           </div>
           <div class="form-group row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Email</p>
               <input 
                 type="email"
                 name="email"
-                id="email"
-                class="form-control"
+                class="col-sm-10 form-control"
                 required="required"
                 placeholder="Email Must Be Valid"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
               />
-            </div>
+            </label>
           </div>
           <div class="form-group row">
-            <label for="full" class="col-sm-2 col-form-label">Full Name</label>
-            <div class="col-sm-10">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Full Name</p>
               <input 
                 type="text"
                 name="full"
-                id="full"
-                class="form-control"
+                class="col-sm-10 form-control"
                 required="required"
                 placeholder="Full Name Appear In Your Profile Page"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
               />
-            </div>
+            </label>
           </div>
           <div class="form-group row">
             <div class="col-sm-12">
@@ -266,64 +262,69 @@
               value="<?php echo $userid ?>"
             />
             <div class="form-group row form-group-lg">
-              <label for="username" class="col-sm-2 col-form-label">Username</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Username</p>
                 <input
                   type="text"
                   name="username"
-                  id="username"
-                  class="form-control"
-                  required="required"
-                  value="<?php echo $row['Username'] ?>"
+                  class="col-sm-10 form-control"
                   autocomplete="off"
+                  required="required"
+                  placeholder="Username To Login Shop"
+                  onfocus="onInputFocus(this)"
+                  onblur="onInputBlur()"
+                  value="<?php echo $row['Username'] ?>"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
-              <label for="newpassword" class="col-sm-2 col-form-label">Password</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Password</p>
                 <input 
-                type="hidden" 
-                name="oldpassword" 
-                value="<?php echo $row['Password'] ?>" 
+                  type="hidden" 
+                  name="oldpassword" 
+                  value="<?php echo $row['Password'] ?>" 
                 />
                 <input
                   type="password"
                   name="newpassword"
-                  id="newpassword"
-                  class="form-control"
+                  class="col-sm-10 form-control"
+                  placeholder="If You Want, Change Your Password"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
-                  placeholder="If You Want, Change Your Password"
                   autocomplete="new-password"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
-              <label for="email" class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Email</p>
                 <input
                   type="email"
                   name="email"
-                  id="email"
-                  class="form-control"
+                  class="col-sm-10 form-control"
                   required="required"
+                  placeholder="Email Must Be Valid"
+                  onfocus="onInputFocus(this)"
+                  onblur="onInputBlur()"
                   value="<?php echo $row['Email'] ?>"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
-              <label for="full" class="col-sm-2 col-form-label">Full Name</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Full Name</p>
                 <input
                   type="text"
                   name="full"
-                  id="full"
-                  class="form-control"
+                  class="col-sm-10 form-control"
                   required="required"
+                  placeholder="Full Name Appear In Your Profile Page"
+                  onfocus="onInputFocus(this)"
+                  onblur="onInputBlur()"
                   value="<?php echo $row['FullName'] ?>"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
               <div class="col-sm-12">

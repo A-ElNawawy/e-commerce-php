@@ -32,7 +32,7 @@ $(function () {
 */
 
 /*=================================================================
-== we want to make focus - blur effect in the input fields
+== we want to make focus/blur effect in the input fields
 == first code with jquery ( but it doesn't work -I don't know why-)
 == second code vanilla JS
 =================================================================*/
@@ -57,7 +57,6 @@ function onInputBlur(){
 ======================================================================*/
 let inputs = document.getElementsByTagName('input');
 for(const input of inputs) {
-  //console.log(input);
   if (input.required === true){
     let span = document.createElement("span");
     span.className = "asterisk";

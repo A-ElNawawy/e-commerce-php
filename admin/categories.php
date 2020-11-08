@@ -53,7 +53,7 @@
                     </div>
                   ';
                   echo '<h3>' . $row['Name'] . '</h3>';
-                  echo $row['Description'] == ""? '<p>This Category Has No Description</p>' : '<p>' . $row['Description'] . '</p>';
+                  echo $row['Description'] == ""? '<p style="color: #777">NO DESCRIPTION</p>' : '<p>' . $row['Description'] . '</p>';
                   echo $row['Visibility'] == 1? '<span class="cat-settings visibility">Hidden</span>' : '';
                   echo $row['Allow_Comments'] == 1? '<span class="cat-settings comments">Comments Disabled</span>' : '';
                   echo $row['Allow_Ads'] == 1? '<span class="cat-settings ads">Ads Blocked</span>' : '';
@@ -71,47 +71,44 @@
       <div class="container">
         <form action="?do=Insert" method="POST">
           <div class="form-group row form-group-lg">
-            <label for="name" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Name</p>
               <input
                 type="text"
                 name="name"
-                id="name"
-                class="form-control"
+                class="col-sm-10 form-control"
                 required="required"
                 placeholder="Category Name"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
               />
-            </div>
+            </label>
           </div>
           <div class="form-group row">
-            <label for="description" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-sm-10">
-              <input
-                type="text"
-                name="description"
-                id="description"
-                class="form-control"
-                placeholder="Describe Your Category"
-                onfocus="onInputFocus(this)"
-                onblur="onInputBlur()"
-              />
-            </div>
+          <label class="col-sm-12 col-form-label my-label">
+            <p class="col-sm-2">Description</p>
+            <input
+              type="text"
+              name="description"
+              class="col-sm-10 form-control"
+              placeholder="Describe Your Category"
+              onfocus="onInputFocus(this)"
+              onblur="onInputBlur()"
+            />
+            </label>
           </div>
           <div class="form-group row">
-            <label for="ordering" class="col-sm-2 col-form-label">Ordering</label>
-            <div class="col-sm-10">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Ordering</p>
               <input 
                 type="text"
                 name="ordering"
-                id="ordering"
-                class="form-control"
+                class="col-sm-10 form-control"
                 placeholder="Type a Number Which Indicates the Category Order"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
               />
-            </div>
+            </label>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Visible</label>
@@ -260,50 +257,47 @@
               value="<?php echo $catid ?>"
             />
             <div class="form-group row form-group-lg">
-              <label for="name" class="col-sm-2 col-form-label">Name</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Name</p>
                 <input
                   type="text"
                   name="name"
-                  id="name"
-                  class="form-control"
+                  class="col-sm-10 form-control"
                   required="required"
                   placeholder="Category Name"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
                   value="<?php echo $row['Name'] ?>"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
-              <label for="description" class="col-sm-2 col-form-label">Description</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Description</p>
                 <input
                   type="text"
                   name="description"
-                  id="description"
-                  class="form-control"
+                  class="col-sm-10 form-control"
                   placeholder="Describe Your Category"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
                   value="<?php echo $row['Description'] ?>"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
-              <label for="ordering" class="col-sm-2 col-form-label">Ordering</label>
-              <div class="col-sm-10">
+              <label class="col-sm-12 col-form-label my-label">
+                <p class="col-sm-2">Ordering</p>
                 <input 
                   type="text"
                   name="ordering"
-                  id="ordering"
-                  class="form-control"
+                  class="col-sm-10 form-control"
                   placeholder="Type a Number Which Indicates the Category Order"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
                   value="<?php echo $row['Ordering'] ?>"
                 />
-              </div>
+              </label>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Visible</label>
