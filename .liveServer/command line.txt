@@ -1,0 +1,17 @@
+final command:
+=============
+First cd myProject, then
+> browser-sync --startPath "/e-commerce-php/admin/dashboard.php" "http://localhost" "admin" -w
+
+
+Reference:
+=========
+https://browsersync.io/
+
+browser-sync start --b "chrome" --port "2000" --reload-delay "100" --proxy "localhost" --startPath "e-commerce-php/admin/dashboard.php" --files "admin" "includes/functions/*" "includes/languages/*" "includes/templates/*" "layout/css/*.css" "layout/js/*"
+ --files ""
+ --startPath "/e-commerce-php/admin/dashboard.php"
+ --reload-delay "100"
+ --b "chrome"
+ --port "2000"
+ --serveStatic "admin"
