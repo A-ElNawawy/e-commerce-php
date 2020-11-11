@@ -420,7 +420,7 @@
         // Check If User ID In Get Request Is Integer & Get Its Integer Value
         $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
         // Select All Data Depend On This ID
-        $check = checkItem('UserID', 'users', $userid);
+        $check = checkItem('UserID'/* $column */, 'users'/* $table */, $userid/* $value */);
         // If There Is Such ID, Show The Form
         if($check > 0){
           $stmt = $con->prepare("DELETE FROM users WHERE UserID = :user");

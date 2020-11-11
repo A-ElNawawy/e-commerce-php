@@ -28,6 +28,11 @@ $(function () {
   }, function(){
     passField.attr('type', 'password');
   });
+
+  // Prompt a Confirmation Message Before Delete
+  $('.delete').click(function(){
+    return confirm('Are You Sure?');
+  })
 });
 */
 
@@ -85,9 +90,15 @@ if(eye !== undefined){
 /* ========================================================================== */
     /* =============================================================== */
               /* ===================================== */
+
+/*=====================================================================
+== Prompt a Confirmation Message Before Delete
+======================================================================*/
 let deleteButtons = document.getElementsByClassName('delete');
 for (const button of deleteButtons){
   button.addEventListener('click', function(){
-    alert(`Are You Sure You Want To Delete:[ ${button.id} ]`);
+    return confirm("Are You Sure?");
+    // Note It Isn't Working Correctly
+    // If You Choose Cancel It Will proceed
   })
 }

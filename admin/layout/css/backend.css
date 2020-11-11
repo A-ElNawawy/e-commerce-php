@@ -151,6 +151,12 @@ h1{
   .categories .card{
     margin-bottom: 15px;
   }
+  .categories .card .card-header{
+    color: #959595;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+  }
   .categories .card .card-body{
     padding: 0;
   }
@@ -171,8 +177,16 @@ h1{
   .categories .card .card-body .cat:hover .hidden{
     right: 15px;
   }
+  .categories .card .card-body .cat h3{
+    color: #6a6a6a;
+    font-weight: bold;
+  }
   .categories .card .card-body .cat p{
+    color: #707070;
     margin: 0;
+  }
+  .categories .card .card-body .cat p.no-description{
+    color: #eb4b4b;
   }
   .categories .card .card-body .cat .cat-settings{
     color: #ffffff;

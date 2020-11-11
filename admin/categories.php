@@ -25,9 +25,11 @@
       <div class="container categories">
         <div class="card">
           <div class="card-header">
-            Manage Categories
+            <div>
+              <i class="fa fa-edit"></i> Manage Categories
+            </div>
             <div class="sorting">
-              Choose Categories Order
+              <i class="fa fa-sort"></i> Ordering
               <a href="?sort=ASC">Asc</a> |
               <a href="?sort=DESC">Desc</a>
             </div>
@@ -53,10 +55,10 @@
                     </div>
                   ';
                   echo '<h3>' . $row['Name'] . '</h3>';
-                  echo $row['Description'] == ""? '<p style="color: #777">NO DESCRIPTION</p>' : '<p>' . $row['Description'] . '</p>';
-                  echo $row['Visibility'] == 1? '<span class="cat-settings visibility">Hidden</span>' : '';
-                  echo $row['Allow_Comments'] == 1? '<span class="cat-settings comments">Comments Disabled</span>' : '';
-                  echo $row['Allow_Ads'] == 1? '<span class="cat-settings ads">Ads Blocked</span>' : '';
+                  echo $row['Description'] == ""? '<p class="no-description">NO DESCRIPTION</p>' : '<p>' . $row['Description'] . '</p>';
+                  echo $row['Visibility'] == 1? '<span class="cat-settings visibility"><i class="fa fa-eye"></i> Hidden</span>' : '';
+                  echo $row['Allow_Comments'] == 1? '<span class="cat-settings comments"><i class="fa fa-close"></i> Comments Disabled</span>' : '';
+                  echo $row['Allow_Ads'] == 1? '<span class="cat-settings ads"><i class="fa fa-close"></i> Ads Blocked</span>' : '';
                 echo '</div>';
                 echo '<hr/>';
               }
@@ -372,10 +374,78 @@
           redirectToHome($theMsg);
         echo '</div>';
       }
-    }elseif($do == 'Update'){
+    }elseif($do == 'Update'){ // Update Page
+      echo '<h1 class="text-center">Update Category</h1>';
+      echo '<div class="container">';
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          // Get Variables From Form
+          $id          = $_POST['catid'];
+          $name        = $_POST['name'];
+          $description = $_POST['description'];
+          $ordering    = $_POST['ordering'];
+          $visibility  = $_POST['visibility'];
+          $commenting  = $_POST['commenting'];
+          $ads         = $_POST['ads'];
+          // Validation Of The Form
+          $formErrors = array();
 
-    }elseif($do == 'Delete'){
-
+          if(empty($name)){
+            $formErrors[] = 'Category name Can\'t Be <strong>Empty</strong>';
+          }
+          foreach($formErrors as $error){
+            echo '<div class="alert alert-danger">' . $error . '</div>';
+          }
+          // Check If There Is No Errors Proceed The Update Process
+          if(empty($formErrors)){
+              // Update The Database With This Info
+              $stmt = $con->prepare("UPDATE
+                                        categories
+                                      SET
+                                        Name = ?,
+                                        Description = ?,
+                                        Ordering = ?,
+                                        Visibility = ?,
+                                        Allow_Comments = ?,
+                                        Allow_Ads = ?
+                                      WHERE
+                                        ID = ?
+                                    ");
+              // Execute Query
+              $stmt->execute(array($name, $description, $ordering, $visibility, $commenting, $ads, $id));
+              // Echo Success Message
+              $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Category(s) Updated</div>';
+              redirectToHome($theMsg, 'back', .5);
+          }
+      }else{
+        $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
+        redirectToHome($theMsg);
+      }
+      echo '</div>';
+    }elseif($do == 'Delete'){ // Delete Member Page
+      echo '<h1 class="text-center">Delete Member</h1>';
+      echo '<div class="container">';
+        /*
+        Note That:
+        If We Type the userid=1 In The HTTP Request
+        We Will Delete The Admin Which Has Not To Happen
+        */
+        // Check If Category ID In Get Request Is Integer & Get Its Integer Value
+        $catid = isset($_GET['catid']) && is_numeric($_GET['catid']) ? intval($_GET['catid']) : 0;
+        // Select All Data Depend On This ID
+        $check = checkItem('ID'/* $column */, 'categories'/* $table */, $catid/* $value */);
+        // If There Is Such ID, Show The Form
+        if($check > 0){
+          $stmt = $con->prepare("DELETE FROM categories WHERE ID = :id");
+          $stmt->bindParam(":id", $catid);
+          $stmt->execute();
+          // Echo Success Message
+          $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Deleted</div>';
+          redirectToHome($theMsg, 'back');
+        }else{
+          $theMsg = '<div class="alert alert-danger">ID You Entered NOT Exist</div>';
+          redirectToHome($theMsg);
+        }
+      echo '</div>';
     }
 
     //=======================================================
