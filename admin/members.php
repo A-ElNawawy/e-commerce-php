@@ -155,7 +155,8 @@
             </label>
           </div>
           <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
               <button
                 type="submit"
                 value="Add Member"
@@ -173,11 +174,11 @@
       echo '<div class="container">';
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Get Variables From Form
-            $user   = $_POST['username'];
-            $pass   = $_POST['password'];
-            $hashedpass   = sha1($_POST['password']);
-            $email  = $_POST['email'];
-            $name   = $_POST['full'];
+            $user       = $_POST['username'];
+            $pass       = $_POST['password'];
+            $hashedpass = sha1($_POST['password']);
+            $email      = $_POST['email'];
+            $name       = $_POST['full'];
             // Validation Of The Form
             $formErrors = array();
 
@@ -217,10 +218,10 @@
                                       ");
                 // Execute Query
                 $stmt->execute(array(
-                  'user' => $user,
-                  'pass' => $hashedpass,
+                  'user'  => $user,
+                  'pass'  => $hashedpass,
                   'email' => $email,
-                  'name' => $name
+                  'name'  => $name
                 ));
                 // Echo Success Message
                 $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';

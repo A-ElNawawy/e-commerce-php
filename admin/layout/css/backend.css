@@ -44,16 +44,17 @@ h1{
   font-size: 25px;
 }
 .form-group input:not([type="radio"]),.form-group button{
-  height: 50px;
+  height: 40px;
 }
 .form-group .radio-group{
   padding-top: 10px;
 }
 .form-group button{
   display: block;
-  margin: auto;
-  width: 300px;
-  font-size: 25px;
+  /*margin-left: -15px;*/
+  padding: 0 8px;
+  width: 200px;
+  font-size: 20px;
 }
 /* End Edit Members */
 
@@ -214,3 +215,9 @@ h1{
     display: none;
   }
 /* End Categories Page */
+
+/* Start Items Page */
+.form-group button{
+  
+}
+/* End Items Page */
