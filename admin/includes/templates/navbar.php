@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="dashboard.php">
       <?php echo lang('ADMIN_HOME') ?><!-- Admin Home -->
     </a>
-    <button 
+    <button
       class="navbar-toggler"
       type="button"
       data-toggle="collapse"
@@ -54,7 +54,7 @@
             <?php echo lang('ADMIN_NAME') ?><!-- Admin Name -->
           </a>
           <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdown">
-            <a 
+            <a
             class="dropdown-item" 
             href="members.php?do=Edit&userid=<?php echo $_SESSION['ID'] ?>"
             >

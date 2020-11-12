@@ -166,13 +166,13 @@
           <div class="form-group row">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-              <button
+              <a
                 type="submit"
                 value="Add Category"
                 class="btn btn-primary"
               >
                 Add Category
-              </button>
+              </a>
             </div>
           </div>
         </form>
@@ -354,14 +354,15 @@
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-sm-12">
-                <button
+              <div class="col-sm-2"></div>
+              <div class="col-sm-10">
+                <a
                   type="submit"
                   value="Edit Category"
                   class="btn btn-primary"
                 >
                   Edit
-                </button>
+                </a>
               </div>
             </div>
           </form>

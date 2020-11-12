@@ -43,18 +43,18 @@ h1{
 .col-form-label{
   font-size: 25px;
 }
-.form-group input:not([type="radio"]),.form-group button{
-  height: 40px;
+.form-group input:not([type="radio"]){
+  height: 50px;
 }
 .form-group .radio-group{
   padding-top: 10px;
 }
-.form-group button{
+.form-group button, .btn{
   display: block;
-  /*margin-left: -15px;*/
+  height: 30px;
   padding: 0 8px;
-  width: 200px;
-  font-size: 20px;
+  width: 160px;
+  font-size: 18px;
 }
 /* End Edit Members */
 
@@ -93,8 +93,15 @@ h1{
   color: #FFF;
 }
 .main-table .btn{
-  padding: 2px 10px;
+  display: initial;
+  height: auto;
+  width: auto;
   font-size: 14px;
+  padding: 2px 10px;
+
+}
+.main-table .btn:not(:last-of-type){
+  margin-right: 5px;
 }
 /*WE HAVE TO CLEAN THE PREVIOUS*/
 
@@ -217,7 +224,5 @@ h1{
 /* End Categories Page */
 
 /* Start Items Page */
-.form-group button{
-  
-}
+
 /* End Items Page */
