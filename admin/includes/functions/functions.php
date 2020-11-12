@@ -25,7 +25,7 @@ function getTitle(){
 ** $url     = The Link Will be Redirect to
 ** $seconds = Seconds Before Redirecting
 */
-function redirectToHome($theMsg, $url = null, $seconds = 3){
+function redirectToHome($theMsg, $url = null, $seconds = 1){
   if($url === null){
     $url = 'index.php';
     $link = 'Homepage';

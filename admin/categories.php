@@ -47,7 +47,7 @@
                         <i class="fa fa-edit"></i> Edit
                       </a>
                       <a
-                        href="#"
+                        href="?do=Delete&catid='.$row['ID'].'"
                         class="btn btn-sm btn-danger"
                       >
                         <i class="fa fa-close"></i> Delete
@@ -166,13 +166,13 @@
           <div class="form-group row">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-              <a
+              <button
                 type="submit"
                 value="Add Category"
                 class="btn btn-primary"
               >
                 Add Category
-              </a>
+              </button>
             </div>
           </div>
         </form>
@@ -356,13 +356,13 @@
             <div class="form-group row">
               <div class="col-sm-2"></div>
               <div class="col-sm-10">
-                <a
+                <button
                   type="submit"
                   value="Edit Category"
                   class="btn btn-primary"
                 >
                   Edit
-                </a>
+                </button>
               </div>
             </div>
           </form>
