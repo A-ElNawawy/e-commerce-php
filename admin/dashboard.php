@@ -40,7 +40,11 @@
         <div class="col-md-3">
           <div class="stat st-total-items">
             Total Items
-            <span>1500</span>
+            <span>
+              <a href="items.php?do=Manage">
+                <?php echo countItems('item_ID', 'items') ?>
+              </a>
+            </span>
           </div>
         </div>
         <div class="col-md-3">
