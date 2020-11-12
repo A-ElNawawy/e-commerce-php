@@ -90,15 +90,51 @@
             </label>
           </div>
           <div class="form-group row">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Member</p>
+              <select
+                name="member"
+                class="col-sm-10 form-control">
+                <option value="0">...</option>
+                <?php
+                  $stmt = $con->prepare("SELECT UserID, Username FROM `users`");
+                  $stmt->execute();
+                  $rows = $stmt->fetchAll();
+                  foreach($rows as $row){
+                    echo '<option value="'.$row['UserID'].'">'.$row['Username'].'</option>';
+                  }
+                ?>
+              </select>
+            </label>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-12 col-form-label my-label">
+              <p class="col-sm-2">Category</p>
+              <select
+                name="category"
+                class="col-sm-10 form-control">
+                <option value="0">...</option>
+                <?php
+                  $stmt = $con->prepare("SELECT ID, Name FROM `categories`");
+                  $stmt->execute();
+                  $rows = $stmt->fetchAll();
+                  foreach($rows as $row){
+                    echo '<option value="'.$row['ID'].'">'.$row['Name'].'</option>';
+                  }
+                ?>
+              </select>
+            </label>
+          </div>
+          <div class="form-group row">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-              <button
+              <a
                 type="submit"
                 value="Add Category"
                 class="btn btn-primary"
               >
                 Add Item
-              </button>
+              </a>
             </div>
           </div>
         </form>
