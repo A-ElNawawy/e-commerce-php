@@ -13,8 +13,82 @@
     //=======================================================
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
-    if($do == 'Manage'){
-      echo '<a href="?do=Add">+ Add</a>';
+    if($do == 'Manage'){      // Manage Members Page
+      // Select All Items
+      $stmt = $con->prepare(" SELECT
+                                items.*,
+                                categories.Name AS Cat_name,
+                                users.Username
+                              FROM
+                                items
+                              INNER JOIN
+                                categories
+                              ON
+                                categories.ID = items.Cat_ID
+                              INNER JOIN
+                                users
+                              ON
+                                users.UserID = items.Member_ID
+                            ");
+      // Execute The Statement
+      $stmt ->execute();
+      // Assign To Variable
+      $rows = $stmt->fetchAll(); ?>
+      <h1 class="text-center">Manage Items</h1>
+      <div class="container">
+        <div class="table-responsive">
+          <table class="main-table table table-bordered text-center">
+            <tr>
+              <td>#ID</td>
+              <td>Name</td>
+              <td>Description</td>
+              <td>Price</td>
+              <td>Adding Date</td>
+              <td>Made In:</td>
+              <td>Status</td>
+              <td>Rating</td>
+              <td>Category</td>
+              <td>Owner</td>
+              <td>Action</td>
+            </tr>
+            <?php
+              foreach($rows as $row){
+                echo '<tr>';
+                echo '<td>' . $row['item_ID'] . '</td>';
+                echo '<td>' . $row['Name'] . '</td>';
+                echo '<td>' . $row['Description'] . '</td>';
+                echo '<td>' . $row['Price'] . '</td>';
+                echo '<td>' . $row['Add_Date'] . '</td>';
+                echo '<td>' . $row['Country_Made'] . '</td>';
+                echo '<td>' . $row['Status'] . '</td>';
+                echo '<td>' . $row['Rating'] . '</td>';
+                echo '<td><a href="#">' . $row['Cat_name'] . '</a></td>';
+                echo '<td><a href="#">' . $row['Username'] . '</a></td>';
+                echo '
+                  <td>
+                    <a
+                      href="?do=Edit&itemid='.$row['item_ID'].'"
+                      class="btn btn-success"
+                    >
+                      <i class="fa fa-edit"></i> Edit
+                    </a>
+                    <a
+                      id="'.$row['Name'].'"
+                      href="?do=Delete&itemid='.$row['item_ID'].'"
+                      class="btn btn-danger delete"
+                    >
+                    <i class="fa fa-close"></i> Delete
+                    </a>
+                ';
+                echo '</td>';
+                echo '</tr>';
+              }
+            ?>
+          </table>
+        </div>
+        <a href="?do=Add" class="btn btn-primary">+ New Item</a>
+      </div>
+    <?php
     }elseif($do == 'Add'){    // Add Item Page ?>
       <h1 class="text-center">Add New Item</h1>
       <div class="container">
@@ -128,13 +202,13 @@
           <div class="form-group row">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-              <a
+              <button
                 type="submit"
                 value="Add Category"
                 class="btn btn-primary"
               >
                 Add Item
-              </a>
+              </button>
             </div>
           </div>
         </form>
@@ -150,6 +224,8 @@
             $price       = $_POST['price'];
             $country     = $_POST['country'];
             $status      = $_POST['status'];
+            $member      = $_POST['member'];
+            $category      = $_POST['category'];
             // Validation Of The Form
             $formErrors = array();
 
@@ -175,15 +251,43 @@
             if($status == 0){
               $formErrors[] = 'You Have To Choose <strong>Status</strong>';
             }
+            if($member == 0){
+              $formErrors[] = 'You Have To Choose The <strong>Member</strong>';
+            }
+            if($category == 0){
+              $formErrors[] = 'You Have To Choose The <strong>Category</strong>';
+            }
             foreach($formErrors as $error){
-              echo '<div class="alert alert-danger">' . $error . '</div>';
+              redirectToHome(
+                '<div class="alert alert-danger">' . $error . '</div>', /*$theMsg*/
+                'back',                                                 /*$url*/
+                3                                                       /*$seconds*/
+              );
             }
             // Check If There Is No Errors Proceed The Insert Process
             if(empty($formErrors)){
               // Insert User Info In Database
               $stmt = $con->prepare("INSERT INTO
-                                        items(Name, Description, Price, Country_Made, Status, Add_Date)
-                                      VALUES(:name, :description, :price, :country, :status, now())
+                                        items(
+                                          `Name`,
+                                          `Description`,
+                                          `Price`,
+                                          `Country_Made`,
+                                          `Status`,
+                                          `Member_ID`,
+                                          `Cat_ID`,
+                                          `Add_Date`
+                                        )
+                                        VALUES(
+                                          :name,
+                                          :description,
+                                          :price,
+                                          :country,
+                                          :status,
+                                          :member,
+                                          :category,
+                                          now()
+                                        )
                                     ");
               // Execute Query
               $stmt->execute(array(
@@ -191,7 +295,9 @@
                 'description' => $description,
                 'price'       => $price,
                 'country'     => $country,
-                'status'      => $status
+                'status'      => $status,
+                'member'      => $member,
+                'category'    => $category
               ));
               // Echo Success Message
               $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Inserted</div>';
