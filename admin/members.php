@@ -354,62 +354,61 @@
       echo '<h1 class="text-center">Update Member</h1>';
       echo '<div class="container">';
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
-          // Get Variables From Form
-          $id     = $_POST['userid'];
-          $user   = $_POST['username'];
-          $email  = $_POST['email'];
-          $name   = $_POST['full'];
-          // Password trick
-          $pass = empty($_POST['newpassword']) ? // Check If newpassword Field Is Empty
-                    $_POST['oldpassword']
-                  :
-                    sha1($_POST['newpassword']);
-          // Validation Of The Form
-          $formErrors = array();
+        // Get Variables From Form
+        $id     = $_POST['userid'];
+        $user   = $_POST['username'];
+        $email  = $_POST['email'];
+        $name   = $_POST['full'];
+        // Password trick
+        $pass = empty($_POST['newpassword']) ? // Check If newpassword Field Is Empty
+                  $_POST['oldpassword']
+                :
+                  sha1($_POST['newpassword']);
+        // Validation Of The Form
+        $formErrors = array();
 
-          if(strlen($user) < 4 && !empty($user)){
-            $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
-          }
-          if(strlen($user) > 20){
-            $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
-          }
-          if(empty($user)){
-            $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
-          }
-          if(empty($email)){
-            $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
-          }
-          if(empty($name)){
-            $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
-          }
-
-          foreach($formErrors as $error){
-            echo '<div class="alert alert-danger">' . $error . '</div>';
-          }
-          // Check If There Is No Errors Proceed The Update Process
-          if(empty($formErrors)){
-            // Update The Database With This Info
-            $stmt = $con->prepare("UPDATE
-                                      users
-                                    SET
-                                      Username = ?,
-                                      Password = ?,
-                                      Email = ?,
-                                      FullName = ?
-                                    WHERE
-                                      UserID = ?
-                                  ");
-            // Execute Query
-            $stmt->execute(array($user, $pass, $email, $name, $id));
-            // Echo Success Message
-            $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
-            redirectToHome($theMsg, 'back');
-          }
-          
-        }else{
-          $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
-          redirectToHome($theMsg);
+        if(strlen($user) < 4 && !empty($user)){
+          $formErrors[] = 'Username Can\'t Be Less Than <strong>4 Chars</strong>';
         }
+        if(strlen($user) > 20){
+          $formErrors[] = 'Username Can\'t Be More Than <strong>20 Chars</strong>';
+        }
+        if(empty($user)){
+          $formErrors[] = 'Username Can\'t Be <strong>Empty</strong>';
+        }
+        if(empty($email)){
+          $formErrors[] = 'Email Can\'t Be <strong>Empty</strong>';
+        }
+        if(empty($name)){
+          $formErrors[] = 'Full Name Can\'t Be <strong>Empty</strong>';
+        }
+
+        foreach($formErrors as $error){
+          echo '<div class="alert alert-danger">' . $error . '</div>';
+        }
+        // Check If There Is No Errors Proceed The Update Process
+        if(empty($formErrors)){
+          // Update The Database With This Info
+          $stmt = $con->prepare("UPDATE
+                                    users
+                                  SET
+                                    Username = ?,
+                                    Password = ?,
+                                    Email = ?,
+                                    FullName = ?
+                                  WHERE
+                                    UserID = ?
+                                ");
+          // Execute Query
+          $stmt->execute(array($user, $pass, $email, $name, $id));
+          // Echo Success Message
+          $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
+          redirectToHome($theMsg, 'back');
+        }
+      }else{
+        $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
+        redirectToHome($theMsg);
+      }
       echo '</div>';
     }elseif($do == 'Delete'){ // Delete Member Page
       echo '<h1 class="text-center">Delete Member</h1>';
