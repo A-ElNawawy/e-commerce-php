@@ -24,7 +24,7 @@
                               INNER JOIN
                                 categories
                               ON
-                                categories.ID = items.Cat_ID
+                                categories.CategoryID = items.Cat_ID
                               INNER JOIN
                                 users
                               ON
@@ -54,7 +54,7 @@
             <?php
               foreach($rows as $row){
                 echo '<tr>';
-                echo '<td>' . $row['item_ID'] . '</td>';
+                echo '<td>' . $row['ItemID'] . '</td>';
                 echo '<td>' . $row['Name'] . '</td>';
                 echo '<td>' . $row['Description'] . '</td>';
                 echo '<td>' . $row['Price'] . '</td>';
@@ -67,19 +67,29 @@
                 echo '
                   <td>
                     <a
-                      href="?do=Edit&itemid='.$row['item_ID'].'"
+                      href="?do=Edit&itemid='.$row['ItemID'].'"
                       class="btn btn-success"
                     >
                       <i class="fa fa-edit"></i> Edit
                     </a>
                     <a
                       id="'.$row['Name'].'"
-                      href="?do=Delete&itemid='.$row['item_ID'].'"
+                      href="?do=Delete&itemid='.$row['ItemID'].'"
                       class="btn btn-danger delete"
                     >
                     <i class="fa fa-close"></i> Delete
                     </a>
                 ';
+                if($row['Approved'] == 0){
+                  echo '
+                    <a
+                      href="?do=Approve&itemid='.$row['ItemID'].'"
+                      class="btn btn-info"
+                    >
+                    <i class="fa fa-check"></i> Approve
+                    </a>
+                  ';
+                }
                 echo '</td>';
                 echo '</tr>';
               }
@@ -189,11 +199,11 @@
                 class="col-sm-10 form-control">
                 <option value="0">...</option>
                 <?php
-                  $stmt = $con->prepare("SELECT ID, Name FROM `categories`");
+                  $stmt = $con->prepare("SELECT CategoryID, Name FROM `categories`");
                   $stmt->execute();
                   $rows = $stmt->fetchAll();
                   foreach($rows as $row){
-                    echo '<option value="'.$row['ID'].'">'.$row['Name'].'</option>';
+                    echo '<option value="'.$row['CategoryID'].'">'.$row['Name'].'</option>';
                   }
                 ?>
               </select>
@@ -317,7 +327,7 @@
                               FROM
                                 items
                               WHERE
-                                item_ID = ?
+                                ItemID = ?
                               LIMIT
                                 1
                             ");
@@ -436,12 +446,12 @@
                   name="category"
                   class="col-sm-10 form-control">
                   <?php
-                    $stmt = $con->prepare("SELECT ID, Name FROM `categories`");
+                    $stmt = $con->prepare("SELECT CategoryID, Name FROM `categories`");
                     $stmt->execute();
                     $rows = $stmt->fetchAll();
                     foreach($rows as $row){
-                      echo '<option value="'.$row['ID'].'"';
-                      if($item['Cat_ID'] == $row['ID']){echo "selected";}
+                      echo '<option value="'.$row['CategoryID'].'"';
+                      if($item['Cat_ID'] == $row['CategoryID']){echo "selected";}
                       echo '>'.$row['Name'].'</option>';
                     }
                   ?>
@@ -527,7 +537,7 @@
                                       `Member_ID` = ?,
                                       `Cat_ID` = ?
                                     WHERE
-                                      item_ID = ?
+                                      ItemID = ?
                                   ");
             // Execute Query
             $stmt->execute(array($name, $description, $price, $country, $status, $member, $category, $id));
@@ -546,10 +556,10 @@
         // Check If User ID In Get Request Is Integer & Get Its Integer Value
         $itemid = isset($_GET['itemid']) && is_numeric($_GET['itemid']) ? intval($_GET['itemid']) : 0;
         // Select All Data Depend On This ID
-        $check = checkItem('item_ID'/* $column */, 'items'/* $table */, $itemid/* $value */);
+        $check = checkItem('ItemID'/* $column */, 'items'/* $table */, $itemid/* $value */);
         // If There Is Such ID, Show The Form
         if($check > 0){
-          $stmt = $con->prepare("DELETE FROM items WHERE item_ID = :item");
+          $stmt = $con->prepare("DELETE FROM items WHERE ItemID = :item");
           $stmt->bindParam(":item", $itemid);
           $stmt->execute();
           // Echo Success Message
@@ -560,8 +570,26 @@
           redirectToHome($theMsg);
         }
       echo '</div>';
-    }elseif($do == 'Activate'){
-      
+    }elseif($do == 'Approve'){ // Approve Item Page
+      echo '<h1 class="text-center">Approve Item</h1>';
+      echo '<div class="container">';
+        // Check If Item ID In Get Request Is Integer & Get Its Integer Value
+        $itemid = isset($_GET['itemid']) && is_numeric($_GET['itemid']) ? intval($_GET['itemid']) : 0;
+        // Select All Data Depend On This ID
+        $check = checkItem('ItemID', 'items', $itemid);
+        // If There Is Such ID, Show The Form
+        if($check > 0){
+          $stmt = $con->prepare("UPDATE items SET Approved = 1 WHERE ItemID = :item;");
+          $stmt->bindParam(":item", $itemid);
+          $stmt->execute();
+          // Echo Success Message
+          $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Approved</div>';
+          redirectToHome($theMsg, 'back');
+        }else{
+          $theMsg = '<div class="alert alert-danger">ID You Entered NOT Exist</div>';
+          redirectToHome($theMsg);
+        }
+      echo '</div>';
     }
 
     //=======================================================

@@ -41,13 +41,13 @@
                   echo '
                     <div class="hidden">
                       <a
-                        href="?do=Edit&catid='.$row['ID'].'"
+                        href="?do=Edit&catid='.$row['CategoryID'].'"
                         class="btn btn-sm btn-primary"
                       >
                         <i class="fa fa-edit"></i> Edit
                       </a>
                       <a
-                        href="?do=Delete&catid='.$row['ID'].'"
+                        href="?do=Delete&catid='.$row['CategoryID'].'"
                         class="btn btn-sm btn-danger"
                       >
                         <i class="fa fa-close"></i> Delete
@@ -239,7 +239,7 @@
                               FROM
                                 categories
                               WHERE
-                                ID = ?
+                                CategoryID = ?
                               LIMIT
                                 1
                             ");
@@ -410,7 +410,7 @@
                                         Allow_Comments = ?,
                                         Allow_Ads = ?
                                       WHERE
-                                        ID = ?
+                                        CategoryID = ?
                                     ");
               // Execute Query
               $stmt->execute(array($name, $description, $ordering, $visibility, $commenting, $ads, $id));
@@ -434,10 +434,10 @@
         // Check If Category ID In Get Request Is Integer & Get Its Integer Value
         $catid = isset($_GET['catid']) && is_numeric($_GET['catid']) ? intval($_GET['catid']) : 0;
         // Select All Data Depend On This ID
-        $check = checkItem('ID'/* $column */, 'categories'/* $table */, $catid/* $value */);
+        $check = checkItem('CategoryID'/* $column */, 'categories'/* $table */, $catid/* $value */);
         // If There Is Such ID, Show The Form
         if($check > 0){
-          $stmt = $con->prepare("DELETE FROM categories WHERE ID = :id");
+          $stmt = $con->prepare("DELETE FROM categories WHERE CategoryID = :id");
           $stmt->bindParam(":id", $catid);
           $stmt->execute();
           // Echo Success Message
