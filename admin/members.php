@@ -46,7 +46,7 @@
               <td>Email</td>
               <td>Full Name</td>
               <td>Registered Date</td>
-              <td>Control</td>
+              <td>Action</td>
             </tr>
             <?php
               foreach($rows as $row){
@@ -78,7 +78,7 @@
                       href="?do=Activate&userid='.$row['UserID'].'"
                       class="btn btn-info"
                     >
-                    <i class="fa fa-close"></i> Activate
+                    <i class="fa fa-check"></i> Activate
                     </a>
                   ';
                 }
@@ -214,7 +214,7 @@
                 // Insert User Info In Database
                 $stmt = $con->prepare("INSERT INTO
                                           users(Username, Password, Email, FullName, RegStatus, Date)
-                                        VALUES(:user, :pass, :email, :name, 1, now())
+                                        VALUES(:user, :pass, :email, :name, 0, now())
                                       ");
                 // Execute Query
                 $stmt->execute(array(

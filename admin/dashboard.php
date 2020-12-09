@@ -5,13 +5,20 @@
     $pageTitle = 'Dashboard';
     include 'init.php';
     //=======================================================
-    $latestUsers = 5; // Number of Latest Users
-    $theLatest = getLatest( // Latest Users Array
-                  "*"/* $column */,
-                  "users"/* $table */,
-                  "UserID"/* $order */,
-                  $latestUsers/* $limit */
+    $usersNum = 5; // Number of Latest Users
+    $latestUsers = getLatest( // Latest Users Array
+                  '*'/* $column */,
+                  'users'/* $table */,
+                  'UserID'/* $order */,
+                  $usersNum/* $limit */
                 );
+    $itemsNum = 5;
+    $latestItems = getLatest( // Latest Items Array
+                  '*'/* $column */,
+                  'items'/* $table */,
+                  'ItemID'/* $order */,
+                  $usersNum/* $limit */
+    )
 ?>
     <!--  -->
     <div class="container home-stats text-center">
@@ -19,38 +26,50 @@
       <div class="row">
         <div class="col-md-3">
           <div class="stat st-total-members">
-            Total Members
-            <span>
-              <a href="members.php">
-                <?php echo countItems('UserID', 'users') ?>
-              </a>
-            </span>
+            <div><i class="fa fa-users"></i></div>
+            <div>
+              Total Members
+              <span>
+                <a href="members.php">
+                  <?php echo countItems('UserID', 'users') ?>
+                </a>
+              </span>
+            </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="stat st-pending-members">
-            Pending Members
-            <span>
-              <a href="members.php?do=Manage&page=Pending">
-                <?php echo checkItem('RegStatus', 'users', 0) ?>
-              </a>
-            </span>
+            <div><i class="fa fa-user-plus"></i></div>
+            <div>
+              Pending Members
+              <span>
+                <a href="members.php?do=Manage&page=Pending">
+                  <?php echo checkItem('RegStatus', 'users', 0) ?>
+                </a>
+              </span>
+            </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="stat st-total-items">
-            Total Items
-            <span>
-              <a href="items.php?do=Manage">
-                <?php echo countItems('item_ID', 'items') ?>
-              </a>
-            </span>
+            <div><i class="fa fa-tag"></i></div>
+            <div>
+              Total Items
+              <span>
+                <a href="items.php?do=Manage">
+                  <?php echo countItems('ItemID', 'items') ?>
+                </a>
+              </span>
+            </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="stat st-total-comments">
-            Total Comments
-            <span>12000</span>
+            <div><i class="fa fa-comments"></i></div>
+            <div>
+              Total Comments
+              <span>0</span>
+            </div>
           </div>
         </div>
       </div>
@@ -60,32 +79,34 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-header">
-              <i class="fa fa-users"></i> Latest <?php echo $latestUsers ?> Registered Users
+              <i class="fa fa-users"></i> Latest <?php echo $usersNum ?> Registered Users
             </div>
             <div class="card-body">
               <ul class="list-unstyled latest-users">
                 <?php
-                  foreach ($theLatest as $user){
+                  foreach ($latestUsers as $user){
                     echo '<li>';
                       echo $user['Username'];
-                      echo '
-                        <a
-                          href="members.php?do=Edit&userid=' . $user['UserID'] . '"
-                          class="btn btn-success pull-right"
-                        >
-                          <i class="fa fa-edit"></i> Edit
-                        </a>
-                      ';
-                      if($user['RegStatus'] == 0){
+                      echo '<div>';
+                        if($user['RegStatus'] == 0){
+                          echo '
+                            <a
+                              href="members.php?do=Activate&userid='.$user['UserID'].'"
+                              class="btn btn-info pull-right"
+                            >
+                            <i class="fa fa-check"></i> Activate
+                            </a>
+                          ';
+                        }
                         echo '
                           <a
-                            href="members.php?do=Activate&userid='.$user['UserID'].'"
-                            class="btn btn-info pull-right"
+                            href="members.php?do=Edit&userid=' . $user['UserID'] . '"
+                            class="btn btn-success pull-right"
                           >
-                          <i class="fa fa-close"></i> Activate
+                            <i class="fa fa-edit"></i> Edit
                           </a>
                         ';
-                      }
+                      echo '</div>';
                     echo '</li>';
                   }
                 ?>
@@ -96,10 +117,38 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-header">
-              <i class="fa fa-users"></i> Latest Items
+              <i class="fas fa-tags"></i> Latest Items
             </div>
             <div class="card-body">
-              Test
+              <ul class="list-unstyled latest-users">
+                <?php
+                  foreach ($latestItems as $item){
+                    echo '<li>';
+                      echo $item['Name'];
+                      echo '<div>';
+                        if($item['Approved'] == 0){
+                          echo '
+                            <a
+                              href="items.php?do=Approve&itemid='.$item['ItemID'].'"
+                              class="btn btn-info pull-right"
+                            >
+                            <i class="fa fa-check"></i> Approve
+                            </a>
+                          ';
+                        }
+                        echo '
+                          <a
+                            href="items.php?do=Edit&itemid=' . $item['ItemID'] . '"
+                            class="btn btn-success pull-right"
+                          >
+                            <i class="fa fa-edit"></i> Edit
+                          </a>
+                        ';
+                      echo '</div>';
+                    echo '</li>';
+                  }
+                ?>
+              </ul>
             </div>
           </div>
         </div>

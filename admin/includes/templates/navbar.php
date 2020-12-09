@@ -34,6 +34,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
+            <?php echo lang('COMMENTS') ?><!-- Comments -->
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
             <?php echo lang('STATISTICS') ?><!-- Statistics -->
           </a>
         </li>
