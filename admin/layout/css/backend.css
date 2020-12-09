@@ -50,10 +50,10 @@ h1{
   padding-top: 10px;
 }
 .form-group button, .btn{
-  display: block;
+  display: inline-block;
   height: 30px;
   padding: 0 8px;
-  width: 160px;
+  /*width: 160px;*/
   font-size: 18px;
 }
 /* End Edit Members */
@@ -93,12 +93,12 @@ h1{
   color: #FFF;
 }
 .main-table .btn{
-  display: initial;
+  display: inline-block;
   height: auto;
   width: auto;
   font-size: 14px;
   padding: 2px 10px;
-
+  margin-bottom: 8px;
 }
 .main-table .btn:not(:last-of-type){
   margin-right: 5px;
@@ -111,11 +111,17 @@ h1{
     border-radius: 10px;
     padding: 20px;
     font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .home-stats .stat a {
+  .home-stats .stat i{
+    font-size: 70px;
+  }
+  .home-stats .stat a{
     color: #fff;
   }
-  .home-stats .stat a:hover {
+  .home-stats .stat a:hover{
     text-decoration: none;
   }
   .home-stats .st-total-members{
@@ -126,6 +132,10 @@ h1{
   }
   .home-stats .st-total-items{
     background-color: #d35400;
+  }
+  .home-stats .st-total-items i{
+    margin-top: 16px;
+    margin-left: 13px;
   }
   .home-stats .st-total-comments{
     background-color: #8e44ad;
@@ -141,6 +151,8 @@ h1{
     margin-bottom: 0;
   }
   .latest .latest-users li{
+    display: flex;
+    justify-content: space-between;
     padding: 8px;
     overflow: hidden;
     border-radius: 5px;
@@ -148,7 +160,8 @@ h1{
   .latest .latest-users li:nth-child(odd){
     background-color: #eee;
   }
-  .latest .latest-users li .btn-success, .latest .latest-users li .btn-info{
+  .latest .latest-users li .btn-success,
+  .latest .latest-users li .btn-info{
     padding: 1px 8px;
   }
   .latest .latest-users li .btn-info{
