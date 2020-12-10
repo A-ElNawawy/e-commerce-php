@@ -16,7 +16,6 @@
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
     if($do == 'Manage'){      // Manage Comments Page
       // Select All Comments
-      $stmt = $con->prepare("SELECT * FROM comments");
       $stmt = $con->prepare(" SELECT
                                 comments.*,
                                 items.Name AS Item_Name,
@@ -31,14 +30,20 @@
                                 users
                               ON
                                 users.UserID = comments.User_ID
+                              ORDER BY
+                                CommentDate
+                              DESC
                             ");
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
       $rows = $stmt->fetchAll();
+      //$rows = [];
       if(empty($rows)) {
     ?>
-        <h1 class="text-center">There Is No Comments</h1>
+      <div class="container">
+        <div class="alert alert-info no-item-message">There Is No Comments</div>
+      </div>
     <?php
       }else{
     ?>

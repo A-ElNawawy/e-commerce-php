@@ -29,14 +29,25 @@
                                 users
                               ON
                                 users.UserID = items.Member_ID
+                              ORDER BY
+                                ItemID
+                              DESC
                             ");
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
       $rows = $stmt->fetchAll();
+      //$rows = [];
       if(empty($rows)) {
     ?>
-        <h1 class="text-center">There Is No Items</h1>
+      <div class="container">
+        <div class="alert alert-info no-item-message">There Is No Items</div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <a href="?do=Add" class="btn btn-primary">Add Item</a>
+          </div>
+        </div>
+      </div>
     <?php
       }else{
     ?>
@@ -482,7 +493,6 @@
           </form>
           <?php
             // Select Comments Related to Selected Items
-            $stmt = $con->prepare("SELECT * FROM comments");
             $stmt = $con->prepare(" SELECT
                                       comments.*,
                                       users.Username As User_Name

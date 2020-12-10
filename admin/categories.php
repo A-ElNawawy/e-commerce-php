@@ -21,9 +21,17 @@
       $stmt ->execute();
       // Assign To Variable
       $rows = $stmt->fetchAll();
+      //$rows = [];
       if(empty($rows)) {
     ?>
-        <h1 class="text-center">There Is No Categories</h1>
+      <div class="container">
+        <div class="alert alert-info no-item-message">There Is No Categories</div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <a href="?do=Add" class="btn btn-primary">Add Category</a>
+          </div>
+        </div>
+      </div>
     <?php
       }else{
     ?>

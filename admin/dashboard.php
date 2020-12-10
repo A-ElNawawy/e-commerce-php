@@ -84,30 +84,34 @@
             <div class="card-body">
               <ul class="list-unstyled latest-users">
                 <?php
-                  foreach ($latestUsers as $user){
-                    echo '<li>';
-                      echo $user['Username'];
-                      echo '<div>';
-                        if($user['RegStatus'] == 0){
+                  if(empty($latestUsers)){
+                    echo '<div class="alert alert-info no-item-message">There Is No Users</div>';
+                  }else{
+                    foreach ($latestUsers as $user){
+                      echo '<li>';
+                        echo $user['Username'];
+                        echo '<div>';
+                          if($user['RegStatus'] == 0){
+                            echo '
+                              <a
+                                href="members.php?do=Activate&userid='.$user['UserID'].'"
+                                class="btn btn-info pull-right"
+                              >
+                              <i class="fa fa-check"></i> Activate
+                              </a>
+                            ';
+                          }
                           echo '
                             <a
-                              href="members.php?do=Activate&userid='.$user['UserID'].'"
-                              class="btn btn-info pull-right"
+                              href="members.php?do=Edit&userid=' . $user['UserID'] . '"
+                              class="btn btn-success pull-right"
                             >
-                            <i class="fa fa-check"></i> Activate
+                              <i class="fa fa-edit"></i> Edit
                             </a>
                           ';
-                        }
-                        echo '
-                          <a
-                            href="members.php?do=Edit&userid=' . $user['UserID'] . '"
-                            class="btn btn-success pull-right"
-                          >
-                            <i class="fa fa-edit"></i> Edit
-                          </a>
-                        ';
-                      echo '</div>';
-                    echo '</li>';
+                        echo '</div>';
+                      echo '</li>';
+                    }
                   }
                 ?>
               </ul>
@@ -117,35 +121,39 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-header">
-              <i class="fas fa-tags"></i> Latest Items
+              <i class="fas fa-tags"></i> Latest <?php echo $itemsNum ?> Items
             </div>
             <div class="card-body">
               <ul class="list-unstyled latest-users">
                 <?php
-                  foreach ($latestItems as $item){
-                    echo '<li>';
-                      echo $item['Name'];
-                      echo '<div>';
-                        if($item['Approved'] == 0){
+                  if(empty($latestItems)){
+                    echo '<div class="alert alert-info no-item-message">There Is No Items</div>';
+                  }else{
+                    foreach ($latestItems as $item){
+                      echo '<li>';
+                        echo $item['Name'];
+                        echo '<div>';
+                          if($item['Approved'] == 0){
+                            echo '
+                              <a
+                                href="items.php?do=Approve&itemid='.$item['ItemID'].'"
+                                class="btn btn-info pull-right"
+                              >
+                              <i class="fa fa-check"></i> Approve
+                              </a>
+                            ';
+                          }
                           echo '
                             <a
-                              href="items.php?do=Approve&itemid='.$item['ItemID'].'"
-                              class="btn btn-info pull-right"
+                              href="items.php?do=Edit&itemid=' . $item['ItemID'] . '"
+                              class="btn btn-success pull-right"
                             >
-                            <i class="fa fa-check"></i> Approve
+                              <i class="fa fa-edit"></i> Edit
                             </a>
                           ';
-                        }
-                        echo '
-                          <a
-                            href="items.php?do=Edit&itemid=' . $item['ItemID'] . '"
-                            class="btn btn-success pull-right"
-                          >
-                            <i class="fa fa-edit"></i> Edit
-                          </a>
-                        ';
-                      echo '</div>';
-                    echo '</li>';
+                        echo '</div>';
+                      echo '</li>';
+                    }
                   }
                 ?>
               </ul>

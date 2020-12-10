@@ -31,14 +31,32 @@
         $query = 'AND RegStatus = 0';
       }
       // Select All Users Except Admin
-      $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query");
+      $stmt = $con->prepare("SELECT
+                              *
+                            FROM
+                              users
+                            WHERE
+                              GroupID != 1
+                            $query
+                            ORDER BY
+                              UserID
+                            DESC
+                            ");
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
       $rows = $stmt->fetchAll();
+      //$rows = [];
       if(empty($rows)) {
     ?>
-        <h1 class="text-center">There Is No Members</h1>
+      <div class="container">
+        <div class="alert alert-info no-item-message">There Is No Members</div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <a href="?do=Add" class="btn btn-primary">Add Member</a>
+          </div>
+        </div>
+      </div>
     <?php
       }else{
     ?>
@@ -222,7 +240,7 @@
               }else{
                 // Insert User Info In Database
                 $stmt = $con->prepare("INSERT INTO
-                                          users(Username, Password, Email, FullName, RegStatus, Date)
+                                          users(`Username`, `Password`, `Email`, `FullName`, `RegStatus`, `Date`)
                                         VALUES(:user, :pass, :email, :name, 0, now())
                                       ");
                 // Execute Query
