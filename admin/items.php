@@ -480,6 +480,81 @@
               </div>
             </div>
           </form>
+          <?php
+            // Select Comments Related to Selected Items
+            $stmt = $con->prepare("SELECT * FROM comments");
+            $stmt = $con->prepare(" SELECT
+                                      comments.*,
+                                      users.Username As User_Name
+                                    FROM
+                                      comments
+                                    INNER JOIN
+                                      users
+                                    ON
+                                      users.UserID = comments.User_ID
+                                    WHERE
+                                      Item_ID = ?
+                                  ");
+            // Execute The Statement
+            $stmt ->execute(array($item['ItemID']));
+            // Assign To Variable
+            $rows = $stmt->fetchAll();
+            if(empty($rows)) {
+          ?>
+          <h1 class="text-center">There Is No Comments For [ <?php echo $item['Name'] ?> ]</h1>
+          <?php
+            }else{
+          ?>
+          <h1 class="text-center">Manage [ <?php echo $item['Name'] ?> ] Comments</h1>
+          <div class="table-responsive">
+            <table class="main-table table table-bordered text-center">
+              <tr>
+                <td>Comment</td>
+                <td>User Name</td>
+                <td>Added Date</td>
+                <td>Action</td>
+              </tr>
+              <?php
+                foreach($rows as $row){
+                  echo '<tr>';
+                  echo '<td>' . $row['Comment'] . '</td>';
+                  echo '<td>' . $row['User_Name'] . '</td>';
+                  echo '<td>' . $row['CommentDate'] . '</td>';
+                  echo '
+                    <td>
+                      <a
+                        href="?do=Edit&commentid='.$row['CommentID'].'"
+                        class="btn btn-success"
+                      >
+                        <i class="fa fa-edit"></i> Edit
+                      </a>
+                      <a
+                        id="'.$row['CommentID'].'"
+                        href="?do=Delete&commentid='.$row['CommentID'].'"
+                        class="btn btn-danger delete"
+                      >
+                      <i class="fa fa-close"></i> Delete
+                      </a>
+                  ';
+                  if($row['Status'] == 0){
+                    echo '
+                      <a
+                        href="?do=Approve&commentid='.$row['CommentID'].'"
+                        class="btn btn-info"
+                      >
+                      <i class="fa fa-check"></i> Approve
+                      </a>
+                    ';
+                  }
+                  echo '</td>';
+                  echo '</tr>';
+                }
+              ?>
+            </table>
+          </div>
+          <?php
+            }
+          ?>
         </div>
       <?php
       // If There IS No Such ID, Show Error Message
