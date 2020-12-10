@@ -7,18 +7,21 @@
     //=======================================================
     $usersNum = 5; // Number of Latest Users
     $latestUsers = getLatest( // Latest Users Array
-                  '*',      /* $column */
-                  'users',  /* $table */
-                  'UserID', /* $order */
-                  $usersNum /* $limit */
-                );
-    $itemsNum = 5;
+                    '*',      /* $column */
+                    'users',  /* $table */
+                    'UserID', /* $order */
+                    $usersNum /* $limit */
+                  );
+    //$latestUsers = [];
+    $itemsNum = 3; // Number of Latest Items
     $latestItems = getLatest( // Latest Items Array
-                  '*',      /* $column */
-                  'items',  /* $table */
-                  'ItemID', /* $order */
-                  $usersNum /* $limit */
-    )
+                    '*',      /* $column */
+                    'items',  /* $table */
+                    'ItemID', /* $order */
+                    $itemsNum /* $limit */
+                  );
+    //$latestItems = [];
+    $commentsNum = 10; // Number of Latest Comments
 ?>
     <!--  -->
     <div class="container home-stats text-center">
@@ -68,7 +71,11 @@
             <div><i class="fa fa-comments"></i></div>
             <div>
               Total Comments
-              <span>0</span>
+              <span>
+                <a href="comments.php?do=Manage">
+                  <?php echo countItems('CommentID', 'comments') ?>
+                </a>
+              </span>
             </div>
           </div>
         </div>
@@ -157,6 +164,82 @@
                   }
                 ?>
               </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-comments-o"></i> Latest <?php echo $commentsNum ?> Comments
+            </div>
+            <div class="card-body">
+              <?php
+                // Select All Comments
+                $stmt = $con->prepare(" SELECT
+                                          comments.*,
+                                          users.Username As User_Name
+                                        FROM
+                                          comments
+                                        INNER JOIN
+                                          users
+                                        ON
+                                          users.UserID = comments.User_ID
+                                        ORDER BY
+                                          CommentDate
+                                        DESC
+                                        LIMIT
+                                          $commentsNum
+                                      ");
+                // Execute The Statement
+                $stmt ->execute();
+                // Assign To Variable
+                $rows = $stmt->fetchAll();
+                //$rows = [];
+                if(empty($rows)){
+                  echo '<div class="alert alert-info no-item-message">There Is No Comments</div>';
+                }else{
+                  foreach($rows as $row){
+                    echo '<div class="latest-comments">';
+                      echo '<div class="content">';
+                        echo '
+                          <span class="user-n">
+                            <a href="members.php?do=Edit&userid='.$row['User_ID'].'">'. $row['User_Name'] . '</a>
+                          </span>';
+                        echo '<p class="user-c">'. $row['Comment'] .'</p>';
+                      echo '</div>';
+                      echo '<div class="controls">';
+                        echo '
+                          <a
+                            href="comments.php?do=Edit&commentid='.$row['CommentID'].'"
+                            class="btn btn-success"
+                          >
+                            <i class="fa fa-edit"></i> Edit
+                          </a>
+                          <a
+                            id="'.$row['CommentID'].'"
+                            href="comments.php?do=Delete&commentid='.$row['CommentID'].'"
+                            class="btn btn-danger delete"
+                          >
+                          <i class="fa fa-close"></i> Delete
+                          </a>
+                        ';
+                        if($row['Status'] == 0){
+                          echo '
+                            <a
+                              href="comments.php?do=Approve&commentid='.$row['CommentID'].'"
+                              class="btn btn-info"
+                            >
+                            <i class="fa fa-check"></i> Approve
+                            </a>
+                          ';
+                        }
+                      echo '</div>';
+                    echo '</div>';
+                  }
+                }
+              ?>
             </div>
           </div>
         </div>
