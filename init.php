@@ -1,5 +1,5 @@
 <?php
-  include 'connect.php';
+  include './admin/connect.php';
   
   /*start Routes*/
   $templates  = 'includes/templates/'; // templates Directory
@@ -13,8 +13,4 @@
   include $func . 'functions.php';
   include $lang . 'english.php';
   include $templates . 'header.php';
-  
-  //Check if we want to hide navbar in the current page or not
-  //to hide the navbar in any page we have to set ($hide_navbar = '';) before including init.php
-  if(!isset($hide_navbar)) { include $templates . 'navbar.php'; }
   /*end Include an Important files*/
