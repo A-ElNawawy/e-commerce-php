@@ -13,7 +13,7 @@
     //=======================================================
 
     $do = isset($_GET['do']) ? $do = $_GET['do'] : $do = 'Manage';
-    if($do == 'Manage'){      // Manage Members Page
+    if($do == 'Manage'){        // Manage Items Page
       // Select All Items
       $stmt = $con->prepare(" SELECT
                                 items.*,
@@ -33,7 +33,13 @@
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
-      $rows = $stmt->fetchAll(); ?>
+      $rows = $stmt->fetchAll();
+      if(empty($rows)) {
+    ?>
+        <h1 class="text-center">There Is No Items</h1>
+    <?php
+      }else{
+    ?>
       <h1 class="text-center">Manage Items</h1>
       <div class="container">
         <div class="table-responsive">
@@ -99,7 +105,10 @@
         <a href="?do=Add" class="btn btn-primary">+ New Item</a>
       </div>
     <?php
-    }elseif($do == 'Add'){    // Add Item Page ?>
+      }
+    ?>
+    <?php
+    }elseif($do == 'Add'){      // Add Item Page ?>
       <h1 class="text-center">Add New Item</h1>
       <div class="container">
         <form action="?do=Insert" method="POST">
@@ -224,7 +233,7 @@
         </form>
       </div>
     <?php
-    }elseif($do == 'Insert'){ //Insert Page
+    }elseif($do == 'Insert'){   // Insert Item Page
       echo '<h1 class="text-center">Insert Item</h1>';
       echo '<div class="container">';
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -318,7 +327,7 @@
         redirectToHome($theMsg);
       }
       echo '</div>';
-    }elseif($do == 'Edit'){   //Edit Item Page
+    }elseif($do == 'Edit'){     // Edit Item Page
       // Check If Item ID In Get Request Is Integer & Get Its Integer Value
       $itemid = isset($_GET['itemid']) && is_numeric($_GET['itemid']) ? intval($_GET['itemid']) : 0;
       // Select All Data Depend On This ID
@@ -481,7 +490,7 @@
           redirectToHome($theMsg);
         echo '</div>';
       }
-    }elseif($do == 'Update'){ //Update Page
+    }elseif($do == 'Update'){   // Update Item Page
       echo '<h1 class="text-center">Update Item</h1>';
       echo '<div class="container">';
       if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -550,7 +559,7 @@
         redirectToHome($theMsg);
       }
       echo '</div>';
-    }elseif($do == 'Delete'){ // Delete Item Page
+    }elseif($do == 'Delete'){   // Delete Item Page
       echo '<h1 class="text-center">Delete Item</h1>';
       echo '<div class="container">';
         // Check If User ID In Get Request Is Integer & Get Its Integer Value
@@ -570,7 +579,7 @@
           redirectToHome($theMsg);
         }
       echo '</div>';
-    }elseif($do == 'Approve'){ // Approve Item Page
+    }elseif($do == 'Approve'){  // Approve Item Page
       echo '<h1 class="text-center">Approve Item</h1>';
       echo '<div class="container">';
         // Check If Item ID In Get Request Is Integer & Get Its Integer Value

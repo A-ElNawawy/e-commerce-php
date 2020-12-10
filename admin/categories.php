@@ -20,7 +20,13 @@
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
-      $rows = $stmt->fetchAll(); ?>
+      $rows = $stmt->fetchAll();
+      if(empty($rows)) {
+    ?>
+        <h1 class="text-center">There Is No Categories</h1>
+    <?php
+      }else{
+    ?>
       <h1 class="text-center">Manage Categories</h1>
       <div class="container categories">
         <div class="card">
@@ -67,6 +73,9 @@
         </div>
         <a href="?do=Add" class="btn btn-primary">+ New Category</a>
       </div>
+    <?php
+      }
+    ?>
     <?php
     }elseif($do == 'Add'){    // Add Category Page ?>
       <h1 class="text-center">Add New Category</h1>

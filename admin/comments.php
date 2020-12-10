@@ -35,7 +35,13 @@
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
-      $rows = $stmt->fetchAll(); ?>
+      $rows = $stmt->fetchAll();
+      if(empty($rows)) {
+    ?>
+        <h1 class="text-center">There Is No Comments</h1>
+    <?php
+      }else{
+    ?>
       <h1 class="text-center">Manage Comments</h1>
       <div class="container">
         <div class="table-responsive">
@@ -89,6 +95,9 @@
           </table>
         </div>
       </div>
+    <?php
+      }
+    ?>
     <?php
     }elseif($do == 'Edit'){   //Edit Comments Page
       // Check If Comment ID In Get Request Is Integer & Get Its Integer Value

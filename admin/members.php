@@ -35,7 +35,13 @@
       // Execute The Statement
       $stmt ->execute();
       // Assign To Variable
-      $rows = $stmt->fetchAll(); ?>
+      $rows = $stmt->fetchAll();
+      if(empty($rows)) {
+    ?>
+        <h1 class="text-center">There Is No Members</h1>
+    <?php
+      }else{
+    ?>
       <h1 class="text-center">Manage Members</h1>
       <div class="container">
         <div class="table-responsive">
@@ -90,6 +96,9 @@
         </div>
         <a href="?do=Add" class="btn btn-primary">+ New Member</a>
       </div>
+    <?php
+      }
+    ?>
     <?php
     }elseif($do == 'Add'){    //Add Members Page ?>
       <h1 class="text-center">Add New Member</h1>
