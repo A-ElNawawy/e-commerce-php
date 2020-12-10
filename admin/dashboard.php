@@ -7,17 +7,17 @@
     //=======================================================
     $usersNum = 5; // Number of Latest Users
     $latestUsers = getLatest( // Latest Users Array
-                  '*'/* $column */,
-                  'users'/* $table */,
-                  'UserID'/* $order */,
-                  $usersNum/* $limit */
+                  '*',      /* $column */
+                  'users',  /* $table */
+                  'UserID', /* $order */
+                  $usersNum /* $limit */
                 );
     $itemsNum = 5;
     $latestItems = getLatest( // Latest Items Array
-                  '*'/* $column */,
-                  'items'/* $table */,
-                  'ItemID'/* $order */,
-                  $usersNum/* $limit */
+                  '*',      /* $column */
+                  'items',  /* $table */
+                  'ItemID', /* $order */
+                  $usersNum /* $limit */
     )
 ?>
     <!--  -->
