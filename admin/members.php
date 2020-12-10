@@ -415,22 +415,39 @@
         }
         // Check If There Is No Errors Proceed The Update Process
         if(empty($formErrors)){
-          // Update The Database With This Info
-          $stmt = $con->prepare("UPDATE
+          // Check If User Exists in Database
+          $stmt2 = $con->prepare(" SELECT
+                                    *
+                                  FROM
                                     users
-                                  SET
-                                    Username = ?,
-                                    Password = ?,
-                                    Email = ?,
-                                    FullName = ?
                                   WHERE
-                                    UserID = ?
-                                ");
-          // Execute Query
-          $stmt->execute(array($user, $pass, $email, $name, $id));
-          // Echo Success Message
-          $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
-          redirectToHome($theMsg, 'back');
+                                    Username = ?
+                                  AND
+                                    UserID != ?
+          ");
+          $stmt2->execute(array($user, $id));
+          $count = $stmt2->rowCount();
+          if($count == 1){
+            $theMsg = '<div class="alert alert-danger">Sorry This Username is Exist</div>';
+            redirectToHome($theMsg, 'back', 1.5);
+          }else{
+            // Update The Database With This Info
+            $stmt = $con->prepare("UPDATE
+                                      users
+                                    SET
+                                      `Username` = ?,
+                                      `Password` = ?,
+                                      `Email` = ?,
+                                      `FullName` = ?
+                                    WHERE
+                                      `UserID` = ?
+                                  ");
+            // Execute Query
+            $stmt->execute(array($user, $pass, $email, $name, $id));
+            // Echo Success Message
+            $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record(s) Updated</div>';
+            redirectToHome($theMsg, 'back');
+          }
         }
       }else{
         $theMsg = '<div class="alert alert-danger">You Can NOT Access This Page Directly</div>';
