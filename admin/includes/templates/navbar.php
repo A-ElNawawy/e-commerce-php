@@ -65,6 +65,12 @@
             >
               <?php echo lang('EDIT_PROFILE') ?><!-- Edit Profile -->
             </a>
+            <a
+              class="dropdown-item"
+              href="./../index.php"
+            >
+              <?php echo lang('VISIT_SHOP') ?><!-- Settings -->
+            </a>
             <a class="dropdown-item" href="#">
               <?php echo lang('SETTINGS') ?><!-- Settings -->
             </a>

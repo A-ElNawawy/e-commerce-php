@@ -13,6 +13,7 @@
       'LOGS'          => 'Logs',
       'ADMIN_NAME'    => 'Ahmed',
       'EDIT_PROFILE'  => 'Edit Profile',
+      'VISIT_SHOP'    => 'visit shop',
       'SETTINGS'      => 'Setting',
       'LOGOUT'        => 'Logout',
     );
