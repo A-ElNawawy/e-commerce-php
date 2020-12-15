@@ -1,0 +1,168 @@
+/* start main rulz */
+  body{
+    background-color: #f4f4f4;
+    padding-bottom: 15px;
+  }
+  h1{
+    color: #888;
+    margin: 30px 0;
+  }
+  .my-label{
+    display: flex;
+  }
+  .my-label p{
+    padding-left: 0;
+  }
+  .my-label input{
+    padding-top: 0;
+  }
+  .no-item-message{
+    margin: 10px 0;
+    border-left: 5px solid #0c5460;
+  }
+  .field-holder{ /* We Put It Here to Be Able to Control the following .asterisk */
+    position: relative;
+  }
+  .asterisk{
+    position: absolute;
+    right: 12px;
+    top: 37px;
+    color: #f32a2a;
+    font-size: 23px;
+  }
+/* end main rulz */
+
+/* start login form */
+  .login-holder{
+    width: 300px;
+    margin: 100px auto;
+  }
+  .login-holder h4{
+    color: #888;
+    margin-bottom: 25px;
+  }
+  .login-holder h4 span a{
+    color: #888;
+    text-decoration: none;
+  }
+  .login-holder h4 .login a:hover{
+    color: #008dde;
+  }
+  .login-holder h4 .login.active a{
+    color: #008dde;
+  }
+  .login-holder h4 .signup a:hover{
+    color: #1e7e34;
+  }
+  .login-holder h4 .signup.active a{
+    color: #1e7e34;
+  }
+  .login-holder form input{
+    margin-bottom: 10px;
+  }
+  .login-holder form .form-control{
+    background-color: #f5f5f5;
+  }
+  .login-holder form .btn{
+    color: #fff;
+  }
+  .login-holder form.login .btn{
+    background-color: #008dde;
+  }
+  .login-holder form.signup .btn{
+    background-color: #1e7e34;
+  }
+
+/* end login form */
+
+/* Start UpperNav */
+
+  .upper-nav{
+    padding: 10px 0;
+  }
+  .upper-nav .nav-holder{
+    /*background-color: red;*/
+  }
+  .upper-nav .nav-holder a{
+    /*background-color: green;*/
+    display: block;
+    width: 100px;
+    margin-left: auto;
+  }
+
+/* EndUpperNav */
+
+/* Start Navbar */
+  .navbar .navbar-container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar .navbar-container .navbar-right ul{
+    margin-left: auto;
+  }
+/* End Navbar */
+
+/* Start Categories */
+
+  .categories .items-holder{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 24%);
+    gap: 20px 0;
+    justify-content: space-between;
+    justify-items: center;
+  }
+  .categories .items-holder .Card{
+    max-width: 250px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    box-shadow: 0 2px 0 0 #c9c9c9;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+  }
+  .categories .items-holder .Card > *{
+    flex-basis: 100%;
+  }
+  .categories .items-holder .Card .price{
+    background-color: #999;
+    color: #fff;
+    border-top-left-radius: 5px;
+    font-weight: bold;
+    padding: 3px 10px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+  }
+  .categories .items-holder .Card .image{
+    margin-bottom: 10px;
+    height: 100px;
+  }
+  .categories .items-holder .Card img{
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .categories .items-holder .Card .content{
+    padding: 0 15px 10px;
+    width: 100%;
+  }
+  .categories .items-holder .Card .content .description{
+    max-height: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .categories .items-holder .Card .content .description:hover{
+    white-space: normal;
+  }
+  .categories .items-holder .Card .content >:first-of-type{
+    margin-bottom: 14px;
+  }
+  .categories .items-holder .Card .content p ~ :first-of-type{
+    margin-top: 15px;
+  }
+/* End Categories */

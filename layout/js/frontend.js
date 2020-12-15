@@ -1,41 +1,3 @@
-/*
-$(function () {
-  'use strict';
-  // Hide placeholder On Form Focus
-  $('[placeholder]').focus(function () {
-
-    $(this).attr('data-text', $(this).attr('placeholder'));
-
-    $(this).attr('placeholder', '');
-
-  }).blur(function() {
-    
-    $(this).attr('placeholder', $(this).attr('data-text'));
-
-  });
-
-  // We Want To Assign An * To Every Required Input Field ( Dynamically )
-  $('input').each(function () {
-    if($(this).attr('required') === 'required'){
-      $(this).after('<span class="asterisk">*</span>');
-    }
-  });
-
-  // Convert Password Field To Text Field On Hover
-  var passField = $('.password');
-  $('.show-pass').hover(function () {
-    passField.att('type', 'text');
-  }, function(){
-    passField.attr('type', 'password');
-  });
-
-  // Prompt a Confirmation Message Before Delete
-  $('.delete').click(function(){
-    return confirm('Are You Sure?');
-  })
-});
-*/
-
 /*=================================================================
 == we want to make focus/blur effect in the input fields
 == first code with jquery ( but it doesn't work -I don't know why-)
@@ -74,24 +36,6 @@ for(const input of inputs) {
               /* ===================================== */
 
 /*=====================================================================
-== Convert Password Field To Text Field On Hover On eye Icon
-======================================================================*/
-let eye = document.getElementsByClassName('show-pass')[0];
-// If There Is No eye Element Escape all the next code
-if(eye !== undefined){
-  let passField = eye.previousElementSibling.previousElementSibling;
-  eye.addEventListener("mouseover", function(){
-    passField.type = "text";
-  });
-  eye.addEventListener("mouseout", function(){
-    passField.type = "password";
-  });
-}
-/* ========================================================================== */
-    /* =============================================================== */
-              /* ===================================== */
-
-/*=====================================================================
 == Prompt a Confirmation Message Before Delete
 ======================================================================*/
 let deleteButtons = document.getElementsByClassName('delete');
@@ -101,4 +45,20 @@ for (const button of deleteButtons){
     // Note It Isn't Working Correctly
     // If You Choose Cancel It Will proceed
   })
+}
+
+
+
+
+let login = document.getElementById("login");
+let signup = document.getElementById("signup");
+//console.log(login, signup);
+
+function activate(){
+  console.log(this);
+  //if(){
+
+  //}
+  //this.className += "active";
+  //this.
 }
