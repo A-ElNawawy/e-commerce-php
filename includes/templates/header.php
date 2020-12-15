@@ -14,7 +14,17 @@
     ?>
     <nav class="upper-nav">
       <div class="container nav-holder">
-        <a href="login.php">login / signup</a>
+        <?php
+          if(isset($_SESSION['username'])){
+        ?>
+          <a href="#"><?php echo $_SESSION['username'] ?></a>
+        <?php
+          }else{
+        ?>
+          <a href="login.php">login / signup</a>
+        <?php
+          }
+        ?>
       </div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

@@ -1,4 +1,11 @@
 <?php
+  /* start or resume session */
+  session_start();
+  if(isset($_SESSION['username'])){
+    $username = $_SESSION['username'];
+  }
+  /* start or resume session */
+
   $pageTitle = 'Categories';
 
   /* start includes */
