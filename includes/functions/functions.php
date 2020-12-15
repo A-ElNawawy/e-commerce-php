@@ -1,5 +1,64 @@
 <?php
 /*
+** getCats Function v1.0
+** Function to Get All Categories From Database
+*/
+function getCats(){
+  global $con;
+  $cat = $con->prepare("SELECT * FROM categories ORDER BY CategoryID ASC");
+  $cat->execute();
+  $cats = $cat->fetchAll();
+  return $cats;
+}
+
+/*
+** getItems Function v1.0
+** Function to Get All Items By Default or Items of a Certain Category From Database [ Accepts Parameters ]
+** $catid = The ID of Category Which We Want to Get Its Items [ Default = 0 ]
+*/
+function getItems($catid = 0){
+  $filter = "";
+  if($catid != 0){
+    $filter = "WHERE Cat_ID = ?";
+  }
+  global $con;
+  $item = $con->prepare("SELECT
+                            *
+                          FROM
+                            items
+                          $filter
+                          ORDER BY
+                            ItemID
+                          ASC
+  ");
+  $item->execute(array($catid));
+  $items = $item->fetchAll();
+  return $items;
+}
+
+
+
+
+
+
+
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+/* ======================================== */
+
+
+
+
+
+
+/*
 ** getTitle() Function v1.0
 ** This Function That Echo The Page Title In Case The Page
 ** Has The Variable $pageTitle And Echo [ Default ] Title For Other Pages
