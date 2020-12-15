@@ -52,10 +52,31 @@
 
 <!-- start HTML -->
   <form class="login" action="<?php echo($_SERVER)['PHP_SELF']; ?>" method="POST">
-    <h4 class="text-center">Admin Login</h4>
-    <input onfocus="onInputFocus(this)" onblur="onInputBlur()" class="form-control" type="text" name="user" placeholder="Username" autocomplete="off" />
-    <input onfocus="onInputFocus(this)" onblur="onInputBlur()" class="form-control" type="password" name="pass" placeholder="Password" autocomplete="new-password" />
-    <input class="btn btn-primary btn-block" type="submit" value="login" />
+    <h4 class="text-center">Login</h4>
+    <input
+      type="text"
+      name="user"
+      class="form-control"
+      onfocus="onInputFocus(this)"
+      onblur="onInputBlur()"
+      placeholder="Username"
+      autocomplete="off"
+      autofocus
+      />
+    <input 
+      type="password"
+      name="pass"
+      class="form-control"
+      onfocus="onInputFocus(this)"
+      onblur="onInputBlur()"
+      placeholder="Password"
+      autocomplete="new-password"
+    />
+    <input 
+      type="submit"
+      class="btn btn-primary btn-block"
+      value="login"
+    />
   </form>
 <!-- end HTML -->
 

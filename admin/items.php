@@ -124,7 +124,7 @@
       <div class="container">
         <form action="?do=Insert" method="POST">
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Name</p>
               <input
                 type="text"
@@ -134,24 +134,25 @@
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
                 required="required"
+                autofocus
               />
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Description</p>
-              <input
+              <textarea
                 type="text"
                 name="description"
                 class="col-sm-10 form-control"
                 placeholder="Describe Your Item"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
-              />
+              ></textarea>
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Price</p>
               <input
                 type="text"
@@ -165,7 +166,7 @@
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Country</p>
               <input
                 type="text"
@@ -179,7 +180,7 @@
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Status</p>
               <select
                 name="status"
@@ -194,7 +195,7 @@
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Member</p>
               <select
                 name="member"
@@ -212,7 +213,7 @@
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Category</p>
               <select
                 name="category"
@@ -368,7 +369,7 @@
               value="<?php echo $itemid ?>"
             />
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Name</p>
                 <input
                   type="text"
@@ -379,25 +380,25 @@
                   onblur="onInputBlur()"
                   required="required"
                   value="<?php echo $item['Name'] ?>"
+                  autofocus
                 />
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Description</p>
-                <input
+                <textarea
                   type="text"
                   name="description"
                   class="col-sm-10 form-control"
                   placeholder="Describe Your Item"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
-                  value="<?php echo $item['Description'] ?>"
-                />
+                ><?php echo $item['Description'] ?></textarea>
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Price</p>
                 <input
                   type="text"
@@ -412,7 +413,7 @@
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Country</p>
                 <input
                   type="text"
@@ -427,7 +428,7 @@
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Status</p>
                 <select
                   name="status"
@@ -441,7 +442,7 @@
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Member</p>
                 <select
                   name="member"
@@ -460,7 +461,7 @@
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Category</p>
                 <select
                   name="category"

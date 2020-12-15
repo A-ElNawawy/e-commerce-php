@@ -132,7 +132,7 @@
               value="<?php echo $commentid ?>"
             />
             <div class="form-group row form-group-lg">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Comment</p>
                 <textarea
                   name="comment"
@@ -140,6 +140,7 @@
                   placeholder="Please type your comment"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
+                  autofocus
                 >
                   <?php echo $row['Comment'] ?>
                 </textarea>

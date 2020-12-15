@@ -123,7 +123,7 @@
       <div class="container">
         <form action="?do=Insert" method="POST">
           <div class="form-group row form-group-lg">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Username</p>
               <input
                 type="text"
@@ -134,11 +134,12 @@
                 placeholder="Username To Login Shop"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
+                autofocus
               />
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Password</p>
               <input
                 type="password"
@@ -154,7 +155,7 @@
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Email</p>
               <input 
                 type="email"
@@ -168,7 +169,7 @@
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Full Name</p>
               <input 
                 type="text"
@@ -290,7 +291,7 @@
               value="<?php echo $userid ?>"
             />
             <div class="form-group row form-group-lg">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Username</p>
                 <input
                   type="text"
@@ -302,11 +303,12 @@
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
                   value="<?php echo $row['Username'] ?>"
+                  autofocus
                 />
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Password</p>
                 <input 
                   type="hidden" 
@@ -325,7 +327,7 @@
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Email</p>
                 <input
                   type="email"
@@ -340,7 +342,7 @@
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Full Name</p>
                 <input
                   type="text"

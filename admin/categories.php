@@ -90,7 +90,7 @@
       <div class="container">
         <form action="?do=Insert" method="POST">
           <div class="form-group row form-group-lg">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Name</p>
               <input
                 type="text"
@@ -100,24 +100,25 @@
                 placeholder="Category Name"
                 onfocus="onInputFocus(this)"
                 onblur="onInputBlur()"
+                autofocus
               />
             </label>
           </div>
           <div class="form-group row">
-          <label class="col-sm-12 col-form-label my-label">
+          <label class="col-sm-12 col-form-label my-label field-holder">
             <p class="col-sm-2">Description</p>
-            <input
+            <textarea
               type="text"
               name="description"
               class="col-sm-10 form-control"
               placeholder="Describe Your Category"
               onfocus="onInputFocus(this)"
               onblur="onInputBlur()"
-            />
+            ></textarea>
             </label>
           </div>
           <div class="form-group row">
-            <label class="col-sm-12 col-form-label my-label">
+            <label class="col-sm-12 col-form-label my-label field-holder">
               <p class="col-sm-2">Ordering</p>
               <input 
                 type="text"
@@ -277,7 +278,7 @@
               value="<?php echo $catid ?>"
             />
             <div class="form-group row form-group-lg">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Name</p>
                 <input
                   type="text"
@@ -288,25 +289,25 @@
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
                   value="<?php echo $row['Name'] ?>"
+                  autofocus
                 />
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Description</p>
-                <input
+                <textarea
                   type="text"
                   name="description"
                   class="col-sm-10 form-control"
                   placeholder="Describe Your Category"
                   onfocus="onInputFocus(this)"
                   onblur="onInputBlur()"
-                  value="<?php echo $row['Description'] ?>"
-                />
+                ><?php echo $row['Description'] ?></textarea>
               </label>
             </div>
             <div class="form-group row">
-              <label class="col-sm-12 col-form-label my-label">
+              <label class="col-sm-12 col-form-label my-label field-holder">
                 <p class="col-sm-2">Ordering</p>
                 <input 
                   type="text"
