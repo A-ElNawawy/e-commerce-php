@@ -1,5 +1,5 @@
 <?php
-  $pageTitle = 'Main';
+  $pageTitle = 'Home';
 
   /* start includes */
   include './init.php';
