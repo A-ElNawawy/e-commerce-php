@@ -8,7 +8,7 @@
 
   session_start();
   
-  if(isset($_SESSION['username'])){
+  if(isset($_SESSION['adminName'])){
     $pageTitle = 'Comments';
     include 'init.php';
     //=======================================================

@@ -7,7 +7,7 @@
 
   session_start();
   
-  if(isset($_SESSION['username'])){
+  if(isset($_SESSION['adminName'])){
     $pageTitle = 'Categories';
     include 'init.php';
     //=======================================================

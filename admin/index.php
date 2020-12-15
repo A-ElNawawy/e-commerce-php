@@ -2,7 +2,7 @@
   /* start or resume session */
   session_start();
 
-  if(isset($_SESSION['username'])){
+  if(isset($_SESSION['adminName'])){
     header('location: dashboard.php');
   }
   /* start or resume session */
@@ -39,7 +39,7 @@
     $row = $stmt->fetch(); // To get all data in this record
     $count = $stmt->rowCount();
     if ($count > 0) {
-      $_SESSION['username'] = $username;
+      $_SESSION['adminName'] = $username;
       $_SESSION['ID'] = $row['UserID'];
       header('location: dashboard.php');
       exit();
