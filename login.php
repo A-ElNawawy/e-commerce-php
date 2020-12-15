@@ -1,11 +1,47 @@
 <?php
-  $pageTitle = 'Main';
+  /* start or resume session */
+  session_start();
+
+  if(isset($_SESSION['username'])){
+    header('location: index.php');
+  }
+  /* start or resume session */
+
+  $pageTitle = 'Login';
 
   /* start includes */
   include './init.php';
   /* end includes */
   //=======================================================
 
+
+  // check if user is coming from HTTP request
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $hashedpass = sha1($password);
+
+    // check if user exist in database
+    $stmt = $con->prepare("SELECT
+                              `Username`, `Password`
+                            FROM
+                              users
+                            WHERE
+                              Username = ?
+                            AND
+                              Password = ?
+    ");
+    $stmt->execute(array($username, $hashedpass));
+    $count = $stmt->rowCount();
+    if ($count > 0) {
+      $_SESSION['username'] = $username;
+      header('location: index.php');
+      exit();
+    }else{
+      echo 'Wrong User Name or Password';
+    }
+  }
+  // To Switch Between Login & Signup Forms
   $form = isset($_GET["form"]) ? $_GET["form"] : "login";
 ?>
   <div class="container">
