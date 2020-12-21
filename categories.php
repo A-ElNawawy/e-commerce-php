@@ -1,6 +1,7 @@
 <?php
   /* start or resume session */
   session_start();
+  $username = "Guest";
   if(isset($_SESSION['username'])){
     $username = $_SESSION['username'];
   }
