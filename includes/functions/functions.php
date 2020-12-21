@@ -59,7 +59,26 @@ function checkRegStatus($username){
   return $registeredCount;
 }
 
-
+/*
+** getUserInfo Function v1.0
+** Function to Get All User's Info [ Accepts Parameters ]
+** $username = username to Get,
+We don't have to Set a Default value,
+Because We Will Use It after $_SESSION['username'] check
+*/
+function getUserInfo($username){
+  global $con;
+  $stmt = $con->prepare("SELECT
+                            *
+                          FROM
+                            users
+                          WHERE
+                            Username = ?
+  ");
+  $stmt->execute(array($username));
+  $userInfo = $stmt->fetch();
+  return $userInfo;
+}
 
 
 

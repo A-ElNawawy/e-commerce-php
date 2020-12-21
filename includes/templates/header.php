@@ -16,10 +16,11 @@
       <div class="container nav-holder">
         <?php
           if(isset($_SESSION['username'])){
-          $userRegStatus = checkRegStatus($username);
+          $userRegStatus = checkRegStatus($sessionUser);
         ?>
-          <a href="#"><?php echo $_SESSION['username'] ?></a>
-          <?php if($userRegStatus == 0){echo "<p>Please Activate Your Membership</p>";} ?>
+          <a href="profile.php"><?php echo $sessionUser ?></a> - 
+          <a href="logout.php">Logout</a>
+          <?php if($userRegStatus == 0){echo '<p class="not-active-member">Please Activate Your Membership</p>';} ?>
         <?php
           }else{
         ?>

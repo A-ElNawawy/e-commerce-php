@@ -81,15 +81,17 @@
     padding: 10px 0;
   }
   .upper-nav .nav-holder{
-    /*background-color: red;*/
+    display: flex;
+    justify-content: flex-end;
   }
   .upper-nav .nav-holder a{
-    /*background-color: green;*/
     display: block;
-    width: 100px;
-    margin-left: auto;
+    margin-right: 5px;
+    margin-left: 5px;
   }
-
+  .upper-nav .nav-holder .not-active-member{
+    margin: 0;
+  }
 /* EndUpperNav */
 
 /* Start Navbar */
@@ -166,3 +168,15 @@
     margin-top: 15px;
   }
 /* End Categories */
+
+/* Start Profile */
+
+  .profile .card{
+    margin-bottom: 20px;
+  }
+  .profile .card .card-header{
+    background-color: #3498db;
+    color: #fff;
+  }
+
+/* End Profile */
