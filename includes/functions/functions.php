@@ -36,6 +36,29 @@ function getItems($catid = 0){
   return $items;
 }
 
+/*
+** checkRegStatus Function v1.0
+** Function to check if user is activated by Admin or Not [ Accepts Parameters ]
+** $username = username to be checked,
+We don't have to Set a Default value,
+Because We Will Use It after $_SESSION['username'] check
+*/
+function checkRegStatus($username){
+  global $con;
+  $stmt = $con->prepare("SELECT
+                            `Username`, `RegStatus`
+                          FROM
+                            users
+                          WHERE
+                            Username = ?
+                          AND
+                            RegStatus = 1
+  ");
+  $stmt->execute(array($username));
+  $registeredCount = $stmt->rowCount();
+  return $registeredCount;
+}
+
 
 
 

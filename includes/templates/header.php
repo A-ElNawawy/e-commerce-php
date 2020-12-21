@@ -16,8 +16,10 @@
       <div class="container nav-holder">
         <?php
           if(isset($_SESSION['username'])){
+          $userRegStatus = checkRegStatus($username);
         ?>
           <a href="#"><?php echo $_SESSION['username'] ?></a>
+          <?php if($userRegStatus == 0){echo "<p>Please Activate Your Membership</p>";} ?>
         <?php
           }else{
         ?>
