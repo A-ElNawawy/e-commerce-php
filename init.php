@@ -1,5 +1,15 @@
 <?php
+  // Error Reporting
+  ini_set('display_errors', 'on');
+  error_reporting(E_ALL);
+
+
   include './admin/connect.php';
+
+  $sessionUser = "";
+  if(isset($_SESSION['username'])){
+    $sessionUser = $_SESSION['username'];
+  }
   
   /*start Routes*/
   $templates  = 'includes/templates/'; // templates Directory
