@@ -14,6 +14,7 @@
     $userInfo = getUserInfo($sessionUser);
     $userid = $userInfo['UserID'];
     $userItems = getUserItems($userid);
+    $userComments = getUserComments($userid);
   ?>
     <div class="profile">
       <div class="container">
@@ -77,35 +78,13 @@
               <i class="fa fa-comments"></i> My Comments
             </div>
             <div class="card-body">
-              <ul class="list-unstyled latest-users">
+              <ul class="list-unstyled">
                 <?php
-                  if(empty($latestUsers)){
+                  if(empty($userComments)){
                     echo '<div class="alert alert-info no-item-message">There Is No Users</div>';
                   }else{
-                    foreach ($latestUsers as $user){
-                      echo '<li>';
-                        echo $user['Username'];
-                        echo '<div>';
-                          if($user['RegStatus'] == 0){
-                            echo '
-                              <a
-                                href="members.php?do=Activate&userid='.$user['UserID'].'"
-                                class="btn btn-info pull-right"
-                              >
-                              <i class="fa fa-check"></i> Activate
-                              </a>
-                            ';
-                          }
-                          echo '
-                            <a
-                              href="members.php?do=Edit&userid=' . $user['UserID'] . '"
-                              class="btn btn-success pull-right"
-                            >
-                              <i class="fa fa-edit"></i> Edit
-                            </a>
-                          ';
-                        echo '</div>';
-                      echo '</li>';
+                    foreach ($userComments as $userComment){
+                      echo '<p>'. $userComment['Comment'] .'</p>';
                     }
                   }
                 ?>

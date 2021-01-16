@@ -62,6 +62,30 @@ function getUserItems($userid){
 }
 
 /*
+** getUserComments Function v1.0
+** Function to Get Comments of a Certain Member From Database [ Accepts Parameters ]
+** $userid = The ID of Member Which We Want to Get His Comments
+We don't have to Set a Default value,
+Because We Will Use It after $_SESSION['username'] check
+*/
+function getUserComments($userid){
+  global $con;
+  $comment = $con->prepare("SELECT
+                            *
+                          FROM
+                            comments
+                          WHERE
+                            User_ID = ?
+                          ORDER BY
+                            CommentID
+                          ASC
+  ");
+  $comment->execute(array($userid));
+  $comments = $comment->fetchAll();
+  return $comments;
+}
+
+/*
 ** checkRegStatus Function v1.0
 ** Function to check if user is activated by Admin or Not [ Accepts Parameters ]
 ** $username = username to be checked,
