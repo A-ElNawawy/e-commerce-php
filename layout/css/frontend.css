@@ -105,16 +105,31 @@
 /* End Navbar */
 
 /* Start Categories */
-
   .categories .items-holder{
     margin-top: 50px;
+  }
+/* End Categories */
+
+/* Start Profile */
+  .profile .card{
+    margin-bottom: 20px;
+  }
+  .profile .card .card-header{
+    background-color: #3498db;
+    color: #fff;
+  }
+/* End Profile */
+
+/* Start Items [ in Categories & Profile ] */
+  .items-holder{
+    /*margin-top: 50px;*/
     display: grid;
     grid-template-columns: repeat(4, 24%);
     gap: 20px 0;
     justify-content: space-between;
     justify-items: center;
   }
-  .categories .items-holder .ProductCard{
+  .items-holder .ProductCard{
     max-width: 250px;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
@@ -126,10 +141,10 @@
     border-top-right-radius: 5px;
     position: relative;
   }
-  .categories .items-holder .ProductCard > *{
+  .items-holder .ProductCard > *{
     flex-basis: 100%;
   }
-  .categories .items-holder .ProductCard .price{
+  .items-holder .ProductCard .price{
     background-color: #999;
     color: #fff;
     border-top-left-radius: 5px;
@@ -139,44 +154,32 @@
     top: 0px;
     left: 0;
   }
-  .categories .items-holder .ProductCard .image{
+  .items-holder .ProductCard .image{
     margin-bottom: 10px;
     height: 100px;
   }
-  .categories .items-holder .ProductCard img{
+  .items-holder .ProductCard img{
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
-  .categories .items-holder .ProductCard .content{
+  .items-holder .ProductCard .content{
     padding: 0 15px 10px;
     width: 100%;
   }
-  .categories .items-holder .ProductCard .content .description{
+  .items-holder .ProductCard .content .description{
     max-height: 70px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .categories .items-holder .ProductCard .content .description:hover{
+  .items-holder .ProductCard .content .description:hover{
     white-space: normal;
   }
-  .categories .items-holder .ProductCard .content >:first-of-type{
+  .items-holder .ProductCard .content >:first-of-type{
     margin-bottom: 14px;
   }
-  .categories .items-holder .ProductCard .content p ~ :first-of-type{
+  .items-holder .ProductCard .content p ~ :first-of-type{
     margin-top: 15px;
   }
-/* End Categories */
-
-/* Start Profile */
-
-  .profile .card{
-    margin-bottom: 20px;
-  }
-  .profile .card .card-header{
-    background-color: #3498db;
-    color: #fff;
-  }
-
-/* End Profile */
+/* End Items [ in Categories & Profile ] */

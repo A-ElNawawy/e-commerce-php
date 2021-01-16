@@ -43,7 +43,7 @@
                   if(!empty($userItems)){
                     foreach($userItems as $userItem){
                       echo '
-                        <div border class="Card box2">
+                        <div border class="ProductCard">
                           <span class="price">'. $userItem['Price'] .'</span>
                           <div class="image">
                             <img
