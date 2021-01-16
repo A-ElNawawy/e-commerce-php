@@ -12,7 +12,7 @@
 
   ?>
     <div class="container">
-      <h1>Welcome <?php echo $sessionUser ?> in Home Page</h1>
+      <h1>Welcome <span style="color: red;"><?php echo $sessionUser ?></span> in Home Page</h1>
     </div>
   <?php
 
