@@ -114,7 +114,7 @@
     justify-content: space-between;
     justify-items: center;
   }
-  .categories .items-holder .Card{
+  .categories .items-holder .ProductCard{
     max-width: 250px;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
@@ -126,10 +126,10 @@
     border-top-right-radius: 5px;
     position: relative;
   }
-  .categories .items-holder .Card > *{
+  .categories .items-holder .ProductCard > *{
     flex-basis: 100%;
   }
-  .categories .items-holder .Card .price{
+  .categories .items-holder .ProductCard .price{
     background-color: #999;
     color: #fff;
     border-top-left-radius: 5px;
@@ -139,32 +139,32 @@
     top: 0px;
     left: 0;
   }
-  .categories .items-holder .Card .image{
+  .categories .items-holder .ProductCard .image{
     margin-bottom: 10px;
     height: 100px;
   }
-  .categories .items-holder .Card img{
+  .categories .items-holder .ProductCard img{
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
-  .categories .items-holder .Card .content{
+  .categories .items-holder .ProductCard .content{
     padding: 0 15px 10px;
     width: 100%;
   }
-  .categories .items-holder .Card .content .description{
+  .categories .items-holder .ProductCard .content .description{
     max-height: 70px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .categories .items-holder .Card .content .description:hover{
+  .categories .items-holder .ProductCard .content .description:hover{
     white-space: normal;
   }
-  .categories .items-holder .Card .content >:first-of-type{
+  .categories .items-holder .ProductCard .content >:first-of-type{
     margin-bottom: 14px;
   }
-  .categories .items-holder .Card .content p ~ :first-of-type{
+  .categories .items-holder .ProductCard .content p ~ :first-of-type{
     margin-top: 15px;
   }
 /* End Categories */

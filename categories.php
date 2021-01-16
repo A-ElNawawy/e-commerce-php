@@ -21,7 +21,7 @@
           if(!empty($items)){
             foreach($items as $item){
               echo '
-                <div border class="Card box2">
+                <div border class="ProductCard">
                   <span class="price">'. $item['Price'] .'</span>
                   <div class="image">
                     <img
