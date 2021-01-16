@@ -12,6 +12,8 @@
 
   if(isset($_SESSION['username'])){
     $userInfo = getUserInfo($sessionUser);
+    $userid = $userInfo['UserID'];
+    $userItems = getUserItems($userid);
   ?>
     <div class="profile">
       <div class="container">
@@ -30,45 +32,42 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 my-ads">
+        <div class="col-sm-12 my-items">
           <div class="card">
             <div class="card-header">
               <i class="fab fa-buysellads"></i> My Ads
             </div>
             <div class="card-body">
-              <ul class="list-unstyled latest-users">
+              <div class="items-holder">
                 <?php
-                  if(empty($latestUsers)){
-                    echo '<div class="alert alert-info no-item-message">There Is No Users</div>';
-                  }else{
-                    foreach ($latestUsers as $user){
-                      echo '<li>';
-                        echo $user['Username'];
-                        echo '<div>';
-                          if($user['RegStatus'] == 0){
-                            echo '
-                              <a
-                                href="members.php?do=Activate&userid='.$user['UserID'].'"
-                                class="btn btn-info pull-right"
-                              >
-                              <i class="fa fa-check"></i> Activate
-                              </a>
-                            ';
-                          }
-                          echo '
-                            <a
-                              href="members.php?do=Edit&userid=' . $user['UserID'] . '"
-                              class="btn btn-success pull-right"
-                            >
-                              <i class="fa fa-edit"></i> Edit
-                            </a>
-                          ';
-                        echo '</div>';
-                      echo '</li>';
+                  if(!empty($userItems)){
+                    foreach($userItems as $userItem){
+                      echo '
+                        <div border class="Card box2">
+                          <span class="price">'. $userItem['Price'] .'</span>
+                          <div class="image">
+                            <img
+                              src="./data/images/productsImages/download.jfif"
+                              alt="Product"
+                            />
+                          </div>
+                          <div class="content">
+                            <h5><a href="#">'. $userItem['Name'] .'</a></h5>
+                            <p class="description">'. $userItem['Description'] .'</p>
+                            <div class="read-more">
+                              <button>
+                                <a href="#">Read more</a>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ';
                     }
+                  }else{
+                    echo '<div class="alert alert-info no-item-message">There Is No Ads</div>';
                   }
                 ?>
-              </ul>
+              </div>
             </div>
           </div>
         </div>

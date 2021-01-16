@@ -36,6 +36,31 @@ function getItems($catid = 0){
   return $items;
 }
 
+
+/*
+** getUserItems Function v1.0
+** Function to Get Items of a Certain Member From Database [ Accepts Parameters ]
+** $userid = The ID of Member Which We Want to Get His Items
+We don't have to Set a Default value,
+Because We Will Use It after $_SESSION['username'] check
+*/
+function getUserItems($userid){
+  global $con;
+  $item = $con->prepare("SELECT
+                            *
+                          FROM
+                            items
+                          WHERE
+                            Member_ID = ?
+                          ORDER BY
+                            ItemID
+                          ASC
+  ");
+  $item->execute(array($userid));
+  $items = $item->fetchAll();
+  return $items;
+}
+
 /*
 ** checkRegStatus Function v1.0
 ** Function to check if user is activated by Admin or Not [ Accepts Parameters ]
