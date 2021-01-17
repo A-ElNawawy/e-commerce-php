@@ -129,6 +129,21 @@ function getUserInfo($username){
   return $userInfo;
 }
 
+/*
+** checkItem Function v1.0
+** Function to Check Item in Database [ Accepts Parameters ]
+** $column  = The Item to Select
+** $table   = The Table to Select From
+** $value   = The Value of $column
+*/
+function checkItem($column, $table, $value){
+  global $con;
+  $statement = $con->prepare("SELECT $column FROM $table WHERE $column = ?");
+  $statement->execute(array($value));
+  $count = $statement->rowCount();
+  return $count;
+}
+
 
 
 
@@ -192,21 +207,6 @@ function redirectToHome($theMsg, $url = null, $seconds = 1){
   echo "<div class='alert alert-info'>You Will Be Redirected to $link In $seconds Seconds.</div>";
   header("refresh:$seconds;url=$url");
   exit();
-}
-
-/*
-** checkItem Function v1.0
-** Function to Check Item in Database [ Accepts Parameters ]
-** $column  = The Item to Select
-** $table   = The Table to Select From
-** $value   = The Value of $column
-*/
-function checkItem($column, $table, $value){
-  global $con;
-  $statement = $con->prepare("SELECT $column FROM $table WHERE $column = ?");
-  $statement->execute(array($value));
-  $count = $statement->rowCount();
-  return $count;
 }
 
 /*

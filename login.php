@@ -43,13 +43,90 @@
         echo 'Wrong User Name or Password';
       }
     }else{
-      echo 'Hello '. $_POST['username'];
+      $formErrors = array();
+      $username = $_POST['username'];
+      $password = $_POST['password'];
+      $password2 = $_POST['password2'];
+      $email = $_POST['email'];
+      /*
+      I don't see any use to this check because of the parent check
+      ($_SERVER['REQUEST_METHOD'] == 'POST')
+      */
+
+      // Validation Check In Backend:
+      // Username Check:
+      if(isset($username)) {
+        // To Avoid Script Injection
+        $filteredUser = filter_var($username, FILTER_SANITIZE_STRING);
+        // check username length
+        if(strlen($filteredUser) < 4) {
+          $formErrors[] = 'Username must be more than 3 chars';
+        }
+      }
+      // Password Check:
+      if(isset($password) && isset($password2)){
+        // check password length
+        if(strlen($password) < 9){
+          echo $password;
+          $formErrors[] = 'Password must be more than 8 chars';
+        }
+        /*
+          Here we don't have to make sanitization because sha1 converts any scripts to a password
+        */
+        // check passwords Matching
+        if($password !== $password2){
+          $formErrors[] = 'Passwords are NOT matching';
+        }
+      }
+      // Email Check:
+      if(isset($_POST['email'])){
+        $filteredEmail = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
+        if(filter_var($filteredEmail, FILTER_VALIDATE_EMAIL) != TRUE){
+          $formErrors[] = 'Please Enter A Valid Email';
+        }
+      }
+      // Check If There Is No Errors Proceed The User Add
+     if(empty($formErrors)){
+        // Check If User Exists in Database
+        $check = checkItem("Username", "users", $username);
+        if($check == 1){
+          $formErrors[] = 'Sorry This Username is Exist';
+        }else{
+          // Insert User Info In Database
+          $stmt = $con->prepare("INSERT INTO
+                                    users(`Username`, `Password`, `Email`, `RegStatus`, `Date`)
+                                  VALUES(:user, :pass, :email, 0, now())
+                                ");
+          // Execute Query
+          $stmt->execute(array(
+            'user'  => $username,
+            'pass'  => sha1($password),
+            'email' => $email
+          ));
+          // Echo Success Message
+          $successMsg = '<div class="alert alert-success success-message">Congratulations, You Registered Successfully</div>';
+          //header("location: login.php?form=login");
+        }
+      }
+      
     }
   }
   // To Switch Between Login & Signup Forms
   $form = isset($_GET["form"]) ? $_GET["form"] : "login";
+  // If User Click Signup Button With Invalid Inputs, Don't Switch to Login Form
+  $form = isset($_POST['signup']) ? "signup" : $form;
 ?>
   <div class="container">
+      <?php
+        if (!empty($formErrors)) {
+          foreach($formErrors as $error){
+            echo '<div class="alert alert-danger danger-message">'. $error .'</div>';
+          }
+        }
+        if (isset($successMsg)){
+          echo $successMsg;
+        }
+      ?>
     <div id="loginHolder" class="login-holder">
       <h4 class="text-center">
         <span id="login" class="login <?php if($form == "login"){echo "active";} ?>" onclick="activate()">
@@ -115,7 +192,10 @@
               autocomplete="off"
               autofocus
               required="required"
+              pattern=".{4,}"
+              title="Username must be more than 3 Chars"
             />
+
           </div>
           <div class="field-holder">
             <label>Email:</label>
@@ -140,6 +220,7 @@
               placeholder="Password"
               autocomplete="new-password"
               required="required"
+              minlength="4"
             />
           </div>
           <div class="field-holder">
@@ -153,6 +234,7 @@
               placeholder="Retype Your Password"
               autocomplete="new-password"
               required="required"
+              minlength="4"
             />
           </div>
           <input

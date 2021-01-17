@@ -20,6 +20,14 @@
     margin: 10px 0;
     border-left: 5px solid #0c5460;
   }
+  .danger-message{
+    margin: 10px 0;
+    border-left: 5px solid #721c24;
+  }
+  .success-message{
+    margin: 10px 0;
+    border-left: 5px solid #155724;
+  }
   .field-holder{ /* We Put It Here to Be Able to Control the following .asterisk */
     position: relative;
   }
