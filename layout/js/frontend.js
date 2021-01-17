@@ -46,19 +46,11 @@ for (const button of deleteButtons){
     // If You Choose Cancel It Will proceed
   })
 }
+/* ========================================================================== */
+    /* =============================================================== */
+              /* ===================================== */
 
-
-
-
-let login = document.getElementById("login");
-let signup = document.getElementById("signup");
-//console.log(login, signup);
-
-function activate(){
-  console.log(this);
-  //if(){
-
-  //}
-  //this.className += "active";
-  //this.
-}
+/*=====================================================================
+== Make Live content in Create New Ad Page
+======================================================================*/
+//let prodName = document.getElementsByClassName("live-name")[0];

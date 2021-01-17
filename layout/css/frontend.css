@@ -130,14 +130,16 @@
 
 /* Start Items [ in Categories & Profile ] */
   .items-holder{
-    /*margin-top: 50px;*/
     display: grid;
     grid-template-columns: repeat(4, 24%);
     gap: 20px 0;
     justify-content: space-between;
     justify-items: center;
   }
-  .items-holder .ProductCard{
+/* End Items [ in Categories & Profile ] */
+
+/* Start ProductCard Component */
+  .ProductCard{
     max-width: 250px;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
@@ -149,10 +151,10 @@
     border-top-right-radius: 5px;
     position: relative;
   }
-  .items-holder .ProductCard > *{
+  .ProductCard > *{
     flex-basis: 100%;
   }
-  .items-holder .ProductCard .price{
+  .ProductCard .price{
     background-color: #999;
     color: #fff;
     border-top-left-radius: 5px;
@@ -162,32 +164,60 @@
     top: 0px;
     left: 0;
   }
-  .items-holder .ProductCard .image{
+  .ProductCard .image{
     margin-bottom: 10px;
     height: 100px;
   }
-  .items-holder .ProductCard img{
+  .ProductCard img{
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
-  .items-holder .ProductCard .content{
+  .ProductCard .content{
     padding: 0 15px 10px;
     width: 100%;
   }
-  .items-holder .ProductCard .content .description{
+  .ProductCard .content .description{
     max-height: 70px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .items-holder .ProductCard .content .description:hover{
+  .ProductCard .content .description:hover{
     white-space: normal;
   }
-  .items-holder .ProductCard .content >:first-of-type{
+  .ProductCard .content >:first-of-type{
     margin-bottom: 14px;
   }
-  .items-holder .ProductCard .content p ~ :first-of-type{
+  .ProductCard .content p ~ :first-of-type{
     margin-top: 15px;
   }
-/* End Items [ in Categories & Profile ] */
+  /* End ProductCard Component */
+
+  /* Start New Ad */
+  .new-ad .card{
+    margin-bottom: 20px;
+  }
+  .new-ad .card .card-header{
+    background-color: #3498db;
+    color: #fff;
+  }
+  .new-ad .card .card-body{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    justify-content: space-between;
+    align-content: start;
+    justify-items: center;
+  }
+  .new-ad .card .card-body .ProductCard{
+    align-self: start;
+  }
+  .new-ad .card .card-body form{
+    display: block;
+    width: 100%;
+  }
+  .new-ad .card .card-body form .asterisk{
+    right: 26px;
+    top: 13px;
+  }
+  /* End New Ad */

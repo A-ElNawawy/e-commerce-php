@@ -65,7 +65,7 @@
                       ';
                     }
                   }else{
-                    echo '<div class="alert alert-info no-item-message">There Is No Ads</div>';
+                    echo '<div class="alert alert-info no-item-message">There Is No Ads. Create <a href="newAd.php">New Ad</a></div>';
                   }
                 ?>
               </div>

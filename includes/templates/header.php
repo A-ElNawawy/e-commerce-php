@@ -18,7 +18,8 @@
           if(isset($_SESSION['username'])){
           $userRegStatus = checkRegStatus($sessionUser);
         ?>
-          <a href="profile.php"><?php echo $sessionUser ?></a> - 
+          <a href="profile.php"><?php echo $sessionUser ?>'s Profile</a> - 
+          <a href="newAd.php">New Ad</a> - 
           <a href="logout.php">Logout</a>
           <?php if($userRegStatus == 0){echo '<p class="not-active-member">Please Activate Your Membership</p>';} ?>
         <?php
