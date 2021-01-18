@@ -42,10 +42,10 @@
               <div class="items-holder">
                 <?php
                   if(!empty($userItems)){
-                    foreach($userItems as $userItem){
+                    foreach($userItems as $Item){
                       echo '
                         <div border class="ProductCard">
-                          <span class="price">'. $userItem['Price'] .'</span>
+                          <span class="price">'. $Item['Price'] .'</span>
                           <div class="image">
                             <img
                               src="./data/images/productsImages/download.jfif"
@@ -53,8 +53,10 @@
                             />
                           </div>
                           <div class="content">
-                            <h5><a href="#">'. $userItem['Name'] .'</a></h5>
-                            <p class="description">'. $userItem['Description'] .'</p>
+                            <h5>
+                              <a href="item.php?itemid=' . $Item['ItemID'] . '">'. $Item['Name'] .'</a>
+                            </h5>
+                            <p class="description">'. $Item['Description'] .'</p>
                             <div class="read-more">
                               <button>
                                 <a href="#">Read more</a>
