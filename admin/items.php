@@ -571,7 +571,7 @@
       // If There IS No Such ID, Show Error Message
       }else{
         echo '<div class="container">';
-          echo '<h1 class="text-center">Edit Member</h1>';
+          echo '<h1 class="text-center">Edit Item</h1>';
           $theMsg = '<div class="alert alert-danger">There Is No Such ID</div>';
           redirectToHome($theMsg);
         echo '</div>';
