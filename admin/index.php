@@ -40,7 +40,7 @@
     $count = $stmt->rowCount();
     if ($count > 0) {
       $_SESSION['adminName'] = $username;
-      $_SESSION['ID'] = $row['UserID'];
+      $_SESSION['adminID'] = $row['UserID'];
       header('location: dashboard.php');
       exit();
     }else{

@@ -61,7 +61,7 @@
           <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdown">
             <a
             class="dropdown-item" 
-            href="members.php?do=Edit&userid=<?php echo $_SESSION['ID'] ?>"
+            href="members.php?do=Edit&userid=<?php echo $_SESSION['adminID'] ?>"
             >
               <?php echo lang('EDIT_PROFILE') ?><!-- Edit Profile -->
             </a>
