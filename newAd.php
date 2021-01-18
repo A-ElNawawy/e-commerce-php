@@ -47,9 +47,10 @@
         $formErrors[] = 'You Have To Choose The <strong>Category</strong>';
       }
       // End Backend Validation
+      // Check If There Is No Errors Proceed The Insert Process
       if(empty($formErrors)){
         // Insert Item Info In Database
-        /*$stmt = $con->prepare("INSERT INTO
+        $stmt = $con->prepare("INSERT INTO
                                   items(
                                     `Name`,
                                     `Description`,
@@ -78,11 +79,15 @@
           'price'       => $price,
           'country'     => $country,
           'status'      => $status,
-          'member'      => $member,
+          'member'      => $_SESSION['userID'],
           'category'    => $category
-        ));*/
+        ));
         // Echo Success Message
-        $successMsg = '<div class="alert alert-success success-message">Item Added Successfully</div>';
+        if($stmt){ //check if data added to database
+          $successMsg = '<div class="alert alert-success success-message">Item Added Successfully</div>';
+        }else{
+          $successMsg = '<div class="alert alert-danger danger-message">Sorry, Your Data NOT Saved</div>';
+        }
       }
     }
   ?>
@@ -105,7 +110,7 @@
               <i class="fab fa-buysellads"></i> <?php echo $pageTitle ?>
             </div>
             <div class="card-body">
-              <form action="?do=Insert" method="POST">
+              <form method="POST">
                 <div class="form-group row">
                   <label class="col-sm-12 col-form-label my-label field-holder">
                     <p class="col-sm-2">Name</p>
