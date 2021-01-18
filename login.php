@@ -25,7 +25,7 @@
   
       // check if user exist in database
       $stmt = $con->prepare("SELECT
-                                `Username`, `Password`
+                                `UserID`, `Username`, `Password`
                               FROM
                                 users
                               WHERE
@@ -35,8 +35,10 @@
       ");
       $stmt->execute(array($username, $hashedpass));
       $count = $stmt->rowCount();
+      $userData = $stmt->fetch();
       if ($count > 0) {
         $_SESSION['username'] = $username;
+        $_SESSION['userID'] = $userData['UserID'];
         header('location: index.php');
         exit();
       }else{
